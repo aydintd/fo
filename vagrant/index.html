@@ -787,7 +787,7 @@ ul li:first {
   content: ' ';
 }
 
-li p { display: inline; }
+li p:first-child { display: inline; }
 li pre { margin-left: 2em; }
 
 a {
@@ -835,18 +835,18 @@ div.slide {
   background: -webkit-gradient(linear, left bottom, left top, from(#eee), to(#eaeaea));
   background-color: #eee;
   background: -moz-linear-gradient(bottom, #eee, #eaeaea);
-  border-top-right-radius: 20px;
-  -moz-border-radius-topright: 20px;
-  -webkit-border-top-right-radius: 20px;
+  border-top-right-radius: 15px;
+  -moz-border-radius-topright: 15px;
+  -webkit-border-top-right-radius: 15px;
   border-bottom-left-radius: 2px;
-  -moz-border-radius-bottomleft: 20px;
-  -webkit-border-bottom-left-radius: 20px;
-  border-top-left-radius: 20px;
-  -moz-border-radius-topleft: 20px;
-  -webkit-border-top-left-radius: 20px;
-  border-bottom-right-radius: 20px;
-  -moz-border-radius-bottomright: 20px;
-  -webkit-border-bottom-right-radius: 20px;
+  -moz-border-radius-bottomleft: 15px;
+  -webkit-border-bottom-left-radius: 15px;
+  border-top-left-radius: 15px;
+  -moz-border-radius-topleft: 15px;
+  -webkit-border-top-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+  -moz-border-radius-bottomright: 15px;
+  -webkit-border-bottom-right-radius: 15px;
 }
 
 ::-webkit-scrollbar-thumb {
@@ -883,7 +883,7 @@ div.slide {
   color: #9c000d;
 }
 
-.slide.right {
+.slide.correct {
   background: #a2dcc1;
   border: 1px solid #eee;
   border-radius: 20px;
@@ -969,8 +969,10 @@ dd p {
  */
 
 div.slide table:not(.highlighttable) {
-  margin: 20px;
+  margin-top: 20px;
   margin-bottom: 50px;
+  margin-left: auto;
+  margin-right: auto;
   color: #666;
   -moz-border-radius: 3px;
   -moz-box-shadow: 0 1px 2px #d1d1d1;
@@ -1683,10 +1685,19 @@ div.slide table:not(.highlighttable) tr td:first-child {
             currentSlideNo = Number(window.location.hash.replace('#slide', ''));
         }
 
-        // hide context on small screens and iframes
+        // handle small screens and iframes
         if (window.screen.availWidth < 1280 || top != self) {
+	    // no context
             hiddenContext = true;
+	    // no background
+	    (document.body || document.getElementsByTagName('body')[0]).style.background = 'none';
         }
+	// show navigator only on touch screens without iframes
+	if ('ontouchstart' in document.documentElement && top == self) {
+		var list = document.getElementsByClassName('navigator');
+		for (var i = 0, el; el = list[i]; i++)
+			el.style.display = '';
+	}
 
         document.addEventListener('keyup', checkModifierKeyUp, false);
         document.addEventListener('keydown', handleBodyKeyDown, false);
@@ -1728,7 +1739,7 @@ div.slide table:not(.highlighttable) tr td:first-child {
 <body>
   <div id="blank"></div>
 
-  <nav id="left">
+  <nav class="navigator" id="left" style="display: none;">
     <menu id="top">
       <button title="Previous slide" id="prev" class="prev">«</button>
       <button title="Next slide" id="next" class="next">»</button>
