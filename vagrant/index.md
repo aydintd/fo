@@ -4,7 +4,7 @@
 
 Aydın Doyak `<aydintd@bil.omu.edu.tr>`
 
-http://aydintd.github.com/
+http://aydintd.me/
 
 Kasım 2012
 
