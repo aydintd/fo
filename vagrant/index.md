@@ -10,65 +10,21 @@ Kasım 2012
 
 ---
 
-##  VirtualBox
+##  Vagrant
 
-Linux üzerinde yaygın olarak kullanılan sanallaştırma araçlarından birisi
+Hafif, taşınabilir ve tekrar tekrar üretilebilir geliştirici ortamlarının
+oluşturulması ve yönetilmesi için tasarlanmış bir proje
 
-*   Bir işletim sistemi açıkken başka bir işletim sistemi çalıştırabilmeye
-    olanak tanıyan bir yazılım
+*   Hafif. Çünkü bir kaç komutla ihtiyacımız olan ortamı kendi isteklerimiz
+    doğrultusunda oluşturabiliyoruz
 
-*   Sistem üzerine sistem kurmak gibi düşünebiliriz
+*   Taşınabilir. Aynı proje üzerinde birden çok kişiyle çalışılan bir senaryoda
+    Vagrant hızlı ve güvenilir
 
-Peki neden böyle bir şeye ihtiyaç duyalım?
+*   Tekrarlanabilir ve çoğaltılabilir. Tek bir ortamı, farklı 
+    geliştirici makineler üzerinde defalarca oluşturabiliyoruz
 
-*   Pek çok program, bir çok işletim sistemi var
-
----
-
-##  VirtualBox
-
-*   Her an her işletim sistemini elimizin altında bulamayabiliriz
-
-*   Çalıştırmanız gereken bir program sadece belirli bir işletim sisteminde
-    çalışıyor olabilir
-
-*   İşte böyle durumlarda VirtualBox hayat kurtarıcınız
-
----
-
-##  Kurulum
-
-https://www.virtualbox.org/wiki/Linux_Downloads
-
-*   Kullandığınız işletim sistemini seçin
-
-    + Link Linux dağıtımları için
-
-    + Diğer dağıtımlar ilgili web sitesinin diğer sayfalarında
-
-    + Makinenizin mimarisine dikkat!
-
-    + i386 -> 32bit , AMD64 -> 64bit
-
----
-
-##  Kurulum
-
-*   İndirdiğiniz .deb paketini sisteminize kurun
-
-        !sh
-       	$ sudo dpkg -i paket_adi
-
-*   Buraya kadar bir sorun yoksa
-
-        !sh
-        $ virtualbox
-
-*   Kullanacağımız sanallaştırma aracı hizmete hazır
-
-Peki sanal sistemi nasıl kuracağız?
-
-*   Türlü yolları var, biz Vagrant üzerinde duracağız
+*   Kısaca esnek ve verimli
 
 ---
 
@@ -88,6 +44,37 @@ Peki sanal sistemi nasıl kuracağız?
 *   Özellikle geliştirme ortamında kullanılmak üzere hazırlanmış
 
 *   Kullanımı basit ve pratik
+
+---
+
+##  Kullanım Senaryoları
+
+Bir uygulama geliştirme projesinde olduğunuzu varsayalım
+
+*  İhtiyaç duyduğunuz ortamlar var (Ör: Rails Sunucu, Mysql Sunucu vb.)  
+   Bu ortamlar Vagrantla bir sanal makine olarak karşınızda
+
+*  Üstelik aynı makineyi çok hızlı bir şekilde paylaşabiliyor ve   
+   değiştirebilip, kaydedebiliyorsunuz
+
+*  Uygulamanız bir yere kadar geldi ve kritik bir durumdan geçmekte  
+   hızlı bir geri besleme almak istiyorsunuz
+
+*  Çalışmanızı Vagrantla oluşturduğunuz makinede dilediğinizce   
+   değiştirip, gereken test sürüşünü çok hızlı ve güvenli şekilde
+   yapabiliyorsunuz
+
+---
+
+##  Özet
+
+Geliştirme > Sahneleme > Son ürün
+
+*  Bu yolda ilerleyen uygulamalar için geliştiricilere,      
+   tekrarlanabilir, taşınabilir, güvenilir ve esnek bir şekilde gereken
+   ortamı sağlamak
+
+Peki tüm bu hikaye ne? Bir de Vagrant yaratıcısından duyalım
 
 ---
 
