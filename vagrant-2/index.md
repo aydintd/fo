@@ -208,7 +208,7 @@ Dosyaya admin grubunu ekledik ama sistemimizde admin diye bir grup yok
 
         !sh
         $ sudo which sudo
-        >/usr/bin/sudo
+        > /usr/bin/sudo
 
     gibi bir çıktıyı şifre girmeden görmemiz gerekiyor
 
