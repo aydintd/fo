@@ -30,7 +30,7 @@ Gözde Sevinç `<gozde.sevinc@bil.omu.edu.tr>`
 .fx: first
 
 Numara  
-Merve Arslan
+Merve ARSLAN
 
 ---
 
@@ -91,7 +91,7 @@ Merve Arslan
 .fx: first
 
 10060311  
-Şeyma Tekin
+Şeyma TEKİN
 
 ---
 
@@ -108,7 +108,7 @@ Merve Arslan
 
     +  Σ: giriş alfabesi
 
-    +  δ: (S - {qaccept}) x (S - {qstart})  R
+    +  δ: (S - {qaccept}) x (S - {qstart}) → R
 
     +  qstart: başlangıç durumu
 
@@ -210,6 +210,75 @@ Merve Arslan
     Gözde Sevinç
 
 ---
+
+##  Düzenli Olmayan Diller
+
+.fx: first
+
+10060270  
+Aydın Tunç DOYAK
+
+---
+
+##  Düzenli Olmayan Diller
+
+*   Sonlu otomataların gücünü anlamamız için aynı zamanda limitlerini de iyi
+    anlamamız gerekiyor.
+
+*   Düzenli olmayan dilleri anlatmak için aşağıdaki örnek gayet kullanışlı :
+
+*   Örnek : Σ = {0, 1}  
+
+     B = {0ⁿ1ⁿ | n >= 0}
+
+    Eğer B dili için uygun bir DFA tasarlamaya çalışırsak, makinenin 1 den önce
+    kaç tane 0 girildiğini bilmediğinden bu dilin otomata tarafından kabul
+    edilmeyeceğini keşfederiz.
+
+---
+
+##  Düzenli Olmayan Diller
+
+*   Başka bir örneği ele alalım :
+
+*   Örnek :
+    Σ = {0, 1}
+
+    A = {w | w eşit sayıda 0 ve 1 lerden oluşur}  
+
+    B = {w | w eşit sayıda 01 ve 10 alt cümlelerinden oluşur}
+
+*   Çözüm :
+    Burada ilk bakışta beklediğimiz sonuç, tanımlanan iki dilin de düzensiz
+    diller olmasıdır. Ancak çıktılarını incelersek;
+
+    `A → 01, 0011, 000111, 000000..111111..` gibi yukarıdaki örneğe benzediğini ve
+    kaç tane 0'ın peşinden kaç tane 1'in geleceğinin takibi yapılamadığından bu
+    dil düzensiz bir dildir.
+
+    Ancak  
+
+    `B → 0110, 0110, 010101101010` görüldüğü gibi bu dil düzenlidir. Çünkü sonsuza
+    kadar da gitse, her 0 en az bir 1 ile takip edileceğinden bu dil düzenlidir.
+
+
+---
+
+##  Düzenli Olmayan Diller
+
+*   B = {0ⁿ1ⁿ | n >= 0}  problemine geri dönülürse; buradaki asıl problem verilen bir sözdeki 
+    0'ların kaç tanesinin otomata tarafından algılanabildiğinin ve okunan 0'lara karşılık kaç tane 1'in 0'ları
+    takip edeceğinin hesaplanamamasıdır.
+
+*   Bu problemin çözümü basit bir hafıza mekanizmasıyla çözülebileceği çok
+    bellidir. Eğer makine kaç tane 0'ı giriş olarak aldığını bilirse, bu dilin
+    sözcükleri de otomata tarafından kabul edilebilirdi.
+
+*   Bu da bize, bir dilin düzenli olup olmadığına karar verebilmemiz için
+    matematiksel kanıtlara ihtiyacımız olduğunu anlatır.
+
+---
+
 ##  Düzenli Diller İçin Pumping Lemma
 
 .fx: first
