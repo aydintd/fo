@@ -86,6 +86,119 @@ Merve Arslan
 
 ---
 
+##  GNFA (Genelleştirilmiş NFA)
+
+.fx: first
+
+10060311  
+Şeyma Tekin
+
+---
+
+##  Genelleştirilmiş NFA
+
+*   NFA'nın bir varyasyonudur.
+
+*   Girişten RE (Düzenli İfade) ile tanımlanmış bir sembol bloğunu okur ve diğer
+    bir duruma bunları oklar aracılığı ile taşır.
+
+*   GNFA 5 niteliğe sahiptir (S, Σ, δ, qstart, qaccept) :
+
+    +  S: sonlu durumlar kümesi
+
+    +  Σ: giriş alfabesi
+
+    +  δ: (S - {qaccept}) x (S - {qstart})  R
+
+    +  qstart: başlangıç durumu
+
+    +  qaccept: bitiş durumu
+
+---
+
+##  GNFA'nın NFA ve DFA'dan Farkı
+
+![seyma1](media/seyma1.png)
+
+---
+
+##  GNFA'nın NFA ve DFA'dan Farkı
+
+*   Bir GNFA deterministik değildir.
+
+*   Bundan dolayı bir proses için birkaç farklı yol mevcuttur.
+
+*   Bu özelliğe dayanaraktan GNFA -> DFA dönüşümü için **Eleme Yöntemi**
+    kullanılır.
+
+---
+
+##  Örnek
+
+![seyma2](media/seyma2.png)
+
+---
+
+##  DFA'dan RE'ye Dönüşüm
+
+*   Bu dönüşüm iki aşamada gerçekleştirilir.
+
+    **1)** DFA'dan GNFA'ya dönüşüm
+
+    **2)** GNFA'dan RE'ye geçiş
+
+---
+
+##  DFA -> GNFA Dönüşümü
+
+*   Yeni birer başlangıç ve bitiş durumu eklenir.
+
+*   Var olan başlangıç durumu ile yeni başlangıç durumu `ε` ile yaratılır. Aynı
+    işlem bitiş durumuna da uygulanır.
+
+---
+
+##  GNFA -> RE Geçişi
+
+*   GNFA'dan DFA'ya geçişte kullandığımız **Eleme** yöntemi baz alınarak
+    yapılır.
+
+*   İki durum arasında aynı yönde birden fazla geçiş varsa durumlar
+    **indirgenerek** diğer durum etiketlerinin birleşimi olan yeni bir geçiş
+    elde edilir.
+
+![seyma3](media/seyma3.png)
+
+---
+
+##  Convert (G)
+
+*   GNFA k duruma sahip olsun.
+
+*   GNFA olabilmesi için birer başlangıç ve bitiş durumun olması ve bunlarında
+    birbirlerinden farklı olması gerektiğini biliyoruz. Buna dayanaraktan k ≥ 2
+    diyebiliriz.
+
+*   k > 2 durumunu incelersek:
+
+    +  İndirgeme yaparak k – 1 durumuna sahip eş değerlikli GNFA elde edilir.
+
+    +  Bu indirgeme işlemi k = 2 olana kadar (recursive olarak) devam ettirilir.
+
+    +  Artık GNFA’nın başlangıç ve bitişi arasında tek bir geçiş(ok) vardır.  Bu
+       geçişi ifade eden etiket eş değerlikli bir RE’dir.
+
+---
+
+##  Örnek
+
+![gozde1](media/gozde1.png)
+
+---
+
+![gozde2](media/gozde2.png)
+
+---
 ##  Düzenli Diller İçin Pumping Lemma
 
 .fx: first
@@ -97,24 +210,24 @@ Koray TAHTA
 
 ##  Pumping Lemma Şartları
 
-*   `W = xyz`  W stringi üç parçaya ayrılabilmeli
+*   `W = xyz`  W stringi üç parçaya ayrılabilmelidir.
 
 *   `Her i >= 0; x yⁿ z  E   L`
 
 *   `|y| > 0`  Orta kısım boş olamaz, y != NULL
 
-*   `|xy| <= p` Pumping ilk p sembol için meydana gelir
+*   `|xy| <= p` Pumping ilk p sembol için meydana gelir.
 
 ---
 
 ##  Pumping Lemma Şartları
 
 *   Bir dilin düzenli (regular) olmadığını ispatlamak için kullanılan
-    bir kanıtlama yöntemidir
+    bir kanıtlama yöntemidir.
 
 *   L düzenli bir dil olsun. Bu dil için pumping number isimli bir "p" sayısı
     mevcuttur. Bu dil içerisinden seçilen herhangi bir "w" stringin uzunluğu, p
-    sayısına eşit veya daha büyük olmak zorundadır
+    sayısına eşit veya daha büyük olmak zorundadır.
 
 ![koray1](media/koray1.png)
 
@@ -133,11 +246,11 @@ Koray TAHTA
     y = bba
     z = baba
 
-*   b bba bba baba ε L olmalıdır
+*   b bba bba baba ε L olmalıdır.
 
-*   b bba bba bba baba ε L olmalıdır
+*   b bba bba bba baba ε L olmalıdır.
 
-*   x yⁿ z ε L olmalıdır
+*   x yⁿ z ε L olmalıdır.
 
 ---
 
@@ -155,6 +268,6 @@ Koray TAHTA
     a⁷⁵ a a⁴ba⁸⁰ >> x = a⁷⁵, y = a, z = a⁴ba⁸⁰ 
 
 
-    x yⁿ z = a⁷⁵aa..a a⁴ba⁸⁰ ε Palindrome olmalıdır  
+*   x yⁿ z = a⁷⁵aa..a a⁴ba⁸⁰ ε Palindrome olmalıdır.  
     Fakat, a⁸¹ba⁸⁰ !ε Palindrome olduğundan bu dil düzensiz bir dildir.
 
