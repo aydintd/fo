@@ -11,17 +11,78 @@ Nisan 2013
 ---
 ##  Sunumu Hazırlayanlar
 
-Aydın Doyak `<aydintd@bil.omu.edu.tr>`  
+Mine Öztürk `<mine.ozturk@bil.omu.edu.tr>`  
+
+Merve Arslan `<mervearslan@bil.omu.edu.tr>`
 
 Şeyma Tekin `<seyma.tekin@bil.omu.edu.tr>`  
 
-Gözde Sevinç `<gozde.sevinc@bil.omu.edu.tr>`  
-
-Merve Arslan `<merve.arslan@bil.omu.edu.tr>`  
-
-Mine Öztürk `<mine.ozturk@bil.omu.edu.tr>`  
+Aydın Doyak `<aydintd@bil.omu.edu.tr>`  
 
 Koray Tahta `<koray.tahta@bil.omu.edu.tr>`  
+
+Gözde Sevinç `<gozde.sevinc@bil.omu.edu.tr>`  
+
+---
+
+##  Düzenli ifadelerin NFAya Dönüşümü
+
+.fx: first
+
+Numara  
+Merve Arslan
+
+---
+
+##  Düzenli ifadelerin NFAya Dönüşümü
+
+*   Düzenli ifadelerin NFAya dönüştürülmesi **Thompson Algoritması** yardımıyla
+    gerçekleştirilir.
+
+*   Gösterimler şu şekildedirler :
+
+`1- Boş eleman ε :` ![merve1](media/merve1.png)
+
+`2- a :` ![merve2](media/merve2.png)
+
+`3- a | b :` ![merve3](media/merve3.png)
+
+---
+
+##  Gösterimler
+
+`4- ab :` ![merve4](media/merve4.png)
+
+`5- a* :` ![merve5](media/merve5.png)
+
+---
+
+##  Örnekler
+
+*   Örnek 1: `a*b*` ifadesini NFA'ya dönüştürelim. Üretilebilecek en kısa
+    dizgi (string) `ε` yani boş küme olacaktır. Çünkü yıldız işleminin üreteceği
+    sonuçlar arasında boş küme de bulunmaktadır.
+
+İkinci dizgimiz `ab` olacaktır ve bu üretme işlemi
+`aab, abb, aabb, aaab, abbb` şeklinde devam edecektir.
+
+![merve6](media/merve6.jpg)
+
+---
+
+##  Örnekler
+
+*   Örnek 2: `L = ab U a*` sözcüğünü NFA'ya çevirin.
+
+![merve7](media/merve7.png)
+
+![merve8](media/merve8.png)
+
+---
+
+##  Örnekler
+
+![merve9](media/merve9.png)
 
 ---
 
@@ -29,7 +90,7 @@ Koray Tahta `<koray.tahta@bil.omu.edu.tr>`
 
 .fx: first
 
-Numara  
+10060314  
 Koray TAHTA
 
 ---
@@ -96,3 +157,4 @@ Koray TAHTA
 
     x yⁿ z = a⁷⁵aa..a a⁴ba⁸⁰ ε Palindrome olmalıdır  
     Fakat, a⁸¹ba⁸⁰ !ε Palindrome olduğundan bu dil düzensiz bir dildir.
+
