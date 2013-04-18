@@ -11,17 +11,17 @@ Nisan 2013
 ---
 ##  Sunumu Hazırlayanlar
 
-Mine Öztürk `<mine.ozturk@bil.omu.edu.tr>`  
+Mine ÖZTÜRK `<mine.ozturk@bil.omu.edu.tr>`  
 
-Merve Arslan `<mervearslan@bil.omu.edu.tr>`
+Merve ARSLAN `merve.arslan@bil.omu.edu.tr>`  
 
-Şeyma Tekin `<seyma.tekin@bil.omu.edu.tr>`  
+Şeyma TEKİN `<seyma.tekin@bil.omu.edu.tr>`  
 
-Aydın Doyak `<aydintd@bil.omu.edu.tr>`  
+Aydın DOYAK `<aydintd@bil.omu.edu.tr>`  
 
-Koray Tahta `<koray.tahta@bil.omu.edu.tr>`  
+Koray TAHTA `<koray.tahta@bil.omu.edu.tr>`  
 
-Gözde Sevinç `<gozde.sevinc@bil.omu.edu.tr>`  
+Gözde SEVİNÇ `<gozde.sevinc@bil.omu.edu.tr>`  
 
 ---
 
@@ -29,7 +29,7 @@ Gözde Sevinç `<gozde.sevinc@bil.omu.edu.tr>`
 
 .fx: first
 
-Numara  
+10060305  
 Merve ARSLAN
 
 ---
@@ -350,4 +350,14 @@ Koray TAHTA
 
 *   x yⁿ z = a⁷⁵aa..a a⁴ba⁸⁰ ε Palindrome olmalıdır.  
     Fakat, a⁸¹ba⁸⁰ !ε Palindrome olduğundan bu dil düzensiz bir dildir.
+
+---
+
+##  Quiz Zamanı...
+
+![quiz1](media/quiz1.png)
+
+2) L = {0i | i  tam kare olmak üzere } dilinin düzensiz bir dil olduğunu gösteriniz.
+
+---
 
