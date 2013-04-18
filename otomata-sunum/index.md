@@ -199,6 +199,17 @@ Merve Arslan
 ![gozde2](media/gozde2.png)
 
 ---
+
+![gozde3](media/gozde3.png)
+
+---
+
+![gozde4](media/gozde4.png)
+
+*   Numara  
+    Gözde Sevinç
+
+---
 ##  Düzenli Diller İçin Pumping Lemma
 
 .fx: first
