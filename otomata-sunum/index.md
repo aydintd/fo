@@ -25,7 +25,7 @@ Gözde Sevinç `<gozde.sevinc@bil.omu.edu.tr>`
 
 ---
 
-##  Düzenli ifadelerin NFAya Dönüşümü
+##  Düzenli ifadelerin NFA'ya Dönüşümü
 
 .fx: first
 
@@ -34,7 +34,7 @@ Merve Arslan
 
 ---
 
-##  Düzenli ifadelerin NFAya Dönüşümü
+##  Düzenli ifadelerin NFA'ya Dönüşümü
 
 *   Düzenli ifadelerin NFAya dönüştürülmesi **Thompson Algoritması** yardımıyla
     gerçekleştirilir.
