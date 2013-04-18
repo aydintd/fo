@@ -122,7 +122,7 @@ Merve ARSLAN
 
 ---
 
-##  GNFA'nın NFA ve DFA'dan Farkı
+##  GNFA'nın Özellikleri
 
 *   Bir GNFA deterministik değildir.
 
@@ -206,7 +206,7 @@ Merve ARSLAN
 
 ![gozde4](media/gozde4.png)
 
-*   Numara  
+*   10060315  
     Gözde Sevinç
 
 ---
