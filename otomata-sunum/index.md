@@ -451,7 +451,7 @@ regular değildir.
 
     `{aⁿ bⁿ : n >=0 }` olur.
 
-    `{aⁿbⁿ : n >=0 }` regular dil olmadığı için L dilide regular
+    `{aⁿbⁿ : n >=0 }` regular dil olmadığı için L dili de regular
     değildir.
 
     Bunu gösterecek olursak:
