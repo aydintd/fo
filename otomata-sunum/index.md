@@ -25,6 +25,86 @@ Gözde SEVİNÇ `<gozde.sevinc@bil.omu.edu.tr>`
 
 ---
 
+##  Düzenli İfadeler
+
+.fx: first
+
+10060293  
+Mine ÖZTÜRK
+
+---
+
+##  Düzenli İfadeler
+
+*   Düzenli ifade, dil temsiline dayanan tanımlayıcı ifadedir. Düzenli ifadeler
+    ile tanımlanan diller düzenli diller (regular languages) olarak
+    adlandırılır.
+
+*   Bir dilin tanımlamak için iki bileşenin tanımlanması gerekir : 
+
+**1)** Alfabe tanımlanması
+
+**2)** Hangi kelimelerin dildeki geçerli ifadeler olacağının tanımlanması
+
+---
+
+##  Düzenli İfade Olma Koşulları
+
+*   Bir Σ alfabesi için, r1 ve r2 sırasıyla L1 ve L2 dillerini temsil eden
+    düzenli ifadeler olsun.
+
+    +  `Ø  →   L = {Ø}`   Hiçbir eleman içermeyebilir.
+
+    +  `ε  →   L = {ε}`   Boş elemandan oluşabilir.
+
+    +  `a  →   L = {a}`   Bir karekterden oluşabilir.
+
+    +  `r1 + r2  →  L = {L1 U L2}` Toplam İşlemi
+
+    +  `r1r2  →  L = {L1.L2}`  Birleştirme İşlemi
+
+    +  `r*  →  L = {L*}`   Yıldız İşlemi
+
+---
+
+##  Örnekler
+
+*   `Σ  ={x}` olmak üzere;
+    `L1={ε , x, xx, xxx, xxxx, ..... }` boş kelime de dahil olmak üzere içerisinde herhangi
+    bir  sayıda x sembolü olan tüm kelimelerin dilidir.
+    L1 dilini tanımlayan düzenli ifade, `x*`  ifadesidir.   
+    Diğer deyişle , `x*` ifadesi   `0 , 1 , 2 , … , n`
+    sonsuza kadar giden  sayıda x sembolünden oluşan kelimeleri ifade  eder.
+
+*   `Σ = {a,b}` olmak üzere,
+    `L2={a , ab, abb, abbb, abbbb, ..... }` kümesi ile tanımlanan dil, `ab*` düzenli ifadesi
+    ile tanımlanabilir.
+
+
+*   `Σ ={a,b}` olmak üzere
+    `L3 = { ε ,  ab,  abab, ababab , ......}`  biçimindeki bir  dil ise,
+    `(ab)*` düzenli ifadesi ile tanımlanabilir.
+
+---
+
+##  Örnekler Devam
+
+*   `Σ ={a,b,c}` alfabesi üzerinde tanımlı
+    `L4={a, c, ab, cb, abb, cbb, abbb, cbbb, .......}`
+     Dili ,  `(a+c)b*`  düzenli ifadesi ile tanımlanır.
+     Bu örnekteki  (a+c) ifadesi, parantez içerisindeki
+     sembollerden birisinin seçileceği (a veya c) anlamına gelmektedir.
+     Seçilen a veya c sembolünü `n = 0,1,2,3, ....` olmak üzere n tane b sembolü izleyebilir.
+
+
+*   `a*b*` düzenli ifadesi ile tanımlanan dil, boş kelime ve eğer varsa a sembollerinin b
+     sembollerinden önce gelmesi ile oluşan kelimelerin dilidir.  
+     Bu dil;  
+     `L6={ε, a, b, aa, ab, bb, aaa, aab, abb, bbb, aaaa, aaabb, ......}`
+     biçiminde de tanımlanır.
+
+---
+
 ##  Düzenli ifadelerin NFA'ya Dönüşümü
 
 .fx: first
@@ -200,14 +280,7 @@ Merve ARSLAN
 
 ---
 
-![gozde3](media/gozde3.png)
-
----
-
 ![gozde4](media/gozde4.png)
-
-*   10060315  
-    Gözde Sevinç
 
 ---
 
@@ -231,7 +304,7 @@ Aydın Tunç DOYAK
 
      B = {0ⁿ1ⁿ | n >= 0}
 
-    Eğer B dili için uygun bir DFA tasarlamaya çalışırsak, makinenin 1 den önce
+*   Eğer B dili için uygun bir DFA tasarlamaya çalışırsak, makine 1 den önce
     kaç tane 0 girildiğini bilmediğinden bu dilin otomata tarafından kabul
     edilmeyeceğini keşfederiz.
 
@@ -292,7 +365,7 @@ Koray TAHTA
 
 *   `W = xyz`  W stringi üç parçaya ayrılabilmelidir.
 
-*   `Her i >= 0; x yⁿ z  E   L`
+*   `Her i >= 0; x yⁿ z ε L`
 
 *   `|y| > 0`  Orta kısım boş olamaz, y != NULL
 
@@ -349,7 +422,58 @@ Koray TAHTA
 
 
 *   x yⁿ z = a⁷⁵aa..a a⁴ba⁸⁰ ε Palindrome olmalıdır.  
-    Fakat, a⁸¹ba⁸⁰ !ε Palindrome olduğundan bu dil düzensiz bir dildir.
+    Fakat, a⁸¹ba⁸⁰ ≠ ε Palindrome olduğundan bu dil düzensiz bir dildir.
+
+---
+
+##  Soru Çözümleri
+
+.fx: first
+
+10060315  
+Gözde SEVİNÇ
+
+
+---
+
+##  Örnek
+
+*   `L = { w ∈ {a, b}* : w e it sayıda a ve b’ya sahiptir}` dili
+
+regular değildir.
+
+*   İspat :
+
+    Eğer L dili regular ise, regular bir dil ile kesişim işlemi kapalı
+    olur.
+
+    Ancak `L ∩ a*b*` kesişiminin sonucunda elde edilen dil
+
+    `{aⁿ bⁿ : n >=0 }` olur.
+
+    `{aⁿbⁿ : n >=0 }` regular dil olmadığı için L dilide regular
+    değildir.
+
+    Bunu gösterecek olursak:
+    `(L = { a^ib^i : i>=0 }` dili regular değildir.
+
+---
+
+*   İspat :
+
+    w = aⁿbⁿ ∈ L olduğunu varsayalım.
+    Pumping teoreminden `w = xyz` yazılabilir.  
+    `|xy| <= n` alınırsa ve `y ≠ ε, y = a^i, i > 0` değerleri için
+    y’nin çıkarıldığı string olan `xz = a^(n-i)b^n` olur ve L diline
+    ait değildir.  
+    Bu sonuç `y = b^i, i > 0` içinde aynıdır.
+    Böylece bu dil regular değildir.
+
+*   Örnek:
+
+    `L = {ab, abba, aabb, abab, aaabbb,...},`
+    `L(a*b*) = {a, b, aa, ab, aab, bb, aabb, abbbb, aaabbb, ...}`
+    `L ∩ a*b* = {ab, aabb, aaabbb, ...}`
 
 ---
 
