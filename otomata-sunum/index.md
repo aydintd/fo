@@ -331,7 +331,7 @@ Aydın Tunç DOYAK
 
     Ancak  
 
-    `B → 0110, 0110, 010101101010` görüldüğü gibi bu dil düzenlidir. Çünkü sonsuza
+    `B → 0110, 01011010, 010101101010` görüldüğü gibi bu dil düzenlidir. Çünkü sonsuza
     kadar da gitse, her 0 en az bir 1 ile takip edileceğinden bu dil düzenlidir.
 
 
