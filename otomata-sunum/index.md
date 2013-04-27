@@ -407,6 +407,19 @@ Koray TAHTA
 
 ---
 
+##  Palindrom Nedir?
+
+*   Palindrom; baştan ve sondan okunduğunda değeri değişmeyen sayılardır.
+    Bunların yazılı biçimlerine ise; **"Dönüşük Sözcükler"** denir.
+
+*   KABAK EFE, KÜÇÜK, ANISINA
+    Ey edip adanada pide ye
+
+*   `1111*1111 = 1234321`
+    `11111*11111 = 123454321`
+
+
+---
 ##  Pumping Lemma Geliştirilmiş Versiyon
 
 *   Örnek : Palindrome dilinin düzgün olmayan bir dil olduğunu ıspatlayınız.
@@ -438,7 +451,7 @@ Gözde SEVİNÇ
 
 ##  Örnek
 
-*   `L = { w ∈ {a, b}* : w e it sayıda a ve b’ya sahiptir}` dili
+*   `L = { w ∈ {a, b}* : w eşit sayıda a ve b’ya sahiptir}` dili
 
 regular değildir.
 
