@@ -498,3 +498,8 @@ regular değildir.
 
 ---
 
+##  Çözümler
+
+![cozum1](media/cozum1.png)
+
+---
