@@ -313,27 +313,27 @@ Aydın Tunç DOYAK
 
 ##  Düzenli Olmayan Diller
 
-*   Başka bir örneği ele alalım :
+###  Örnek :
 
-*   Örnek :
-    Σ = {0, 1}
+Σ = {0, 1}
 
-    A = {w | w eşit sayıda 0 ve 1 lerden oluşur}  
+A = {w | w eşit sayıda 0 ve 1 lerden oluşur}  
 
-    B = {w | w eşit sayıda 01 ve 10 alt cümlelerinden oluşur}
+B = {w | w eşit sayıda 01 ve 10 alt cümlelerinden oluşur}
 
-*   Çözüm :
-    Burada ilk bakışta beklediğimiz sonuç, tanımlanan iki dilin de düzensiz
-    diller olmasıdır. Ancak çıktılarını incelersek;
+### Çözüm :
 
-    `A → 01, 0011, 000111, 000000..111111..` gibi yukarıdaki örneğe benzediğini ve
-    kaç tane 0'ın peşinden kaç tane 1'in geleceğinin takibi yapılamadığından bu
-    dil düzensiz bir dildir.
+Burada ilk bakışta beklediğimiz sonuç, tanımlanan iki dilin de düzensiz
+diller olmasıdır. Ancak çıktılarını incelersek;
 
-    Ancak;  
+`A → 01, 0011, 000111, 000000..111111..` gibi yukarıdaki örneğe benzediğini ve
+kaç tane 0'ın peşinden kaç tane 1'in geleceğinin takibi yapılamadığından bu
+dil düzensiz bir dildir.
 
-    `B → 0110, 01011010, 010101101010` görüldüğü gibi bu dil düzenlidir. Çünkü sonsuza
-    kadar da gitse, her 0 en az bir 1 ile takip edileceğinden bu dil düzenlidir.
+Ancak;  
+
+`B → 0110, 01011010, 010101101010` görüldüğü gibi bu dil düzenlidir. Çünkü sonsuza
+kadar da gitse, her 0 en az bir 1 ile takip edileceğinden bu dil düzenlidir.
 
 ---
 
@@ -471,22 +471,23 @@ regular değildir.
     `(L = { a^ib^i : i>=0 }` dili regular değildir.
 
 ---
+##  Örnek
 
-*   İspat :
+### İspat :
 
-    w = aⁿbⁿ ∈ L olduğunu varsayalım.
-    Pumping teoreminden `w = xyz` yazılabilir.  
-    `|xy| <= n` alınırsa ve `y ≠ ε, y = a^i, i > 0` değerleri için
-    y’nin çıkarıldığı string olan `xz = a^(n-i)b^n` olur ve L diline
-    ait değildir.  
-    Bu sonuç `y = b^i, i > 0` içinde aynıdır.
-    Böylece bu dil regular değildir.
+w = aⁿbⁿ ∈ L olduğunu varsayalım.
+Pumping teoreminden `w = xyz` yazılabilir.  
+`|xy| <= n` alınırsa ve `y ≠ ε, y = a^i, i > 0` değerleri için
+y’nin çıkarıldığı string olan `xz = a^(n-i)b^n` olur ve L diline
+ait değildir.  
+Bu sonuç `y = b^i, i > 0` içinde aynıdır.
+Böylece bu dil regular değildir.
 
-*   Örnek:
+### Örnek:
 
-    `L = {ab, abba, aabb, abab, aaabbb,...},`
-    `L(a*b*) = {a, b, aa, ab, aab, bb, aabb, abbbb, aaabbb, ...}`
-    `L ∩ a*b* = {ab, aabb, aaabbb, ...}`
+`L = {ab, abba, aabb, abab, aaabbb,...},`
+`L(a*b*) = {a, b, aa, ab, aab, bb, aabb, abbbb, aaabbb, ...}`
+`L ∩ a*b* = {ab, aabb, aaabbb, ...}`
 
 ---
 
