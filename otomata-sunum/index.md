@@ -412,7 +412,7 @@ Koray TAHTA
 *   Palindrom; baştan ve sondan okunduğunda değeri değişmeyen sayılardır.
     Bunların yazılı biçimlerine ise; **"Dönüşük Sözcükler"** denir.
 
-*   KABAK EFE, KÜÇÜK, ANISINA  
+*   KABAK, EFE, KÜÇÜK, ANISINA  
     Ey edip adanada pide ye
 
 *   `1111*1111 = 1234321`  
