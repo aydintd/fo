@@ -280,6 +280,10 @@ Merve ARSLAN
 
 ---
 
+![gozde3](media/gozde3.png)
+
+---
+
 ![gozde4](media/gozde4.png)
 
 ---
