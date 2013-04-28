@@ -140,11 +140,8 @@ Merve ARSLAN
 ##  Örnekler
 
 *   Örnek 1: `a*b*` ifadesini NFA'ya dönüştürelim. Üretilebilecek en kısa
-    dizgi (string) `ε` yani boş küme olacaktır. Çünkü yıldız işleminin üreteceği
-    sonuçlar arasında boş küme de bulunmaktadır.
-
-İkinci dizgimiz `ab` olacaktır ve bu üretme işlemi
-`aab, abb, aabb, aaab, abbb` şeklinde devam edecektir.
+    dizgi (string) `ε` yani boş eleman olacaktır. Çünkü yıldız işleminin üreteceği
+    sonuçlar arasında boş eleman da bulunmaktadır.
 
 ![merve6](media/merve6.jpg)
 
@@ -505,5 +502,30 @@ regular değildir.
 ##  Çözümler
 
 ![cozum1](media/cozum1.png)
+
+---
+
+##  Çözümler
+
+###  Cevap 2:
+
+*   L'nin düzenli bir dil olduğunu varsayalım.  
+    m bir tamsayı olsun.  
+    w = 0m² olarak seçelim ve w ε L olduğu için;  
+    w = xyⁿz şartını sağlıyor olmalıdır ve  
+    |xy| ≤ m, |y| > 0 olmalıdır.  
+
+*   n = 2 olduğu durumu göz önüne alırsak:  
+    w = xy²z olur.  
+    Sonra, m² = |w|, |w| < |xy²z|  
+    |xy²z| ≤ m² + m olması beklenir.  
+
+*   m² + m = m(m+1) < (m+1)² olduğu için bu uzunluk w = xy²z 'nin iki tam
+    kare arasında olduğunu göstermektedir.  
+    Şöyle ki;  
+
+    m² < |xy²z| < (m+1)² dir.  
+
+    Bundan dolayı xy²z ≠ε L ve L dilinin düzenli varsayımı çelişkidir.
 
 ---
