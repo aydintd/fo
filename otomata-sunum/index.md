@@ -330,11 +330,10 @@ Aydın Tunç DOYAK
     kaç tane 0'ın peşinden kaç tane 1'in geleceğinin takibi yapılamadığından bu
     dil düzensiz bir dildir.
 
-    Ancak  
+    Ancak;  
 
     `B → 0110, 01011010, 010101101010` görüldüğü gibi bu dil düzenlidir. Çünkü sonsuza
     kadar da gitse, her 0 en az bir 1 ile takip edileceğinden bu dil düzenlidir.
-
 
 ---
 
