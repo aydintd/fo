@@ -485,9 +485,9 @@ Böylece bu dil regular değildir.
 
 ### Örnek:
 
-`L = {ab, abba, aabb, abab, aaabbb,...},`
-`L(a*b*) = {a, b, aa, ab, aab, bb, aabb, abbbb, aaabbb, ...}`
-`L ∩ a*b* = {ab, aabb, aaabbb, ...}`
+`L = {ab, abba, aabb, abab, aaabbb,...},`  
+`L(a*b*) = {a, b, aa, ab, aab, bb, aabb, abbbb, aaabbb, ...}`  
+`L ∩ a*b* = {ab, aabb, aaabbb, ...}`  
 
 ---
 
