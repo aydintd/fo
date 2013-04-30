@@ -526,6 +526,6 @@ Böylece bu dil regular değildir.
 
     m² < |xy²z| < (m+1)² dir.  
 
-    Bundan dolayı xy²z ≠ε L ve L dilinin düzenli varsayımı çelişkidir.
+    Bundan dolayı xy²z, L'nin bir elemanı değildir ve L dilinin düzenli varsayımı çelişkidir.
 
 ---
