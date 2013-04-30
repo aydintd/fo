@@ -495,7 +495,7 @@ Böylece bu dil regular değildir.
 
 ![quiz1](media/quiz1.png)
 
-2) L = {0i | i  tam kare olmak üzere } dilinin düzensiz bir dil olduğunu gösteriniz.
+2) L = {0^i | i  tam kare olmak üzere } dilinin düzensiz bir dil olduğunu gösteriniz.
 
 ---
 
@@ -511,7 +511,7 @@ Böylece bu dil regular değildir.
 
 *   L'nin düzenli bir dil olduğunu varsayalım.  
     m bir tamsayı olsun.  
-    w = 0m² olarak seçelim ve w ε L olduğu için;  
+    w = 0^m² olarak seçelim ve w ε L olduğu için;  
     w = xyⁿz şartını sağlıyor olmalıdır ve  
     |xy| ≤ m, |y| > 0 olmalıdır.  
 
