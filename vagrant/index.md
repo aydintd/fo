@@ -90,20 +90,19 @@ Peki tüm bu hikaye ne? Bir de Vagrant yaratıcısından duyalım
 
 ##  Vagrant Kurulumu
 
-http://downloads.vagrantup.com/tags/v1.0.5
-
-*   Linkten işletim sisteminize uygun olan paketi indirin
-
-*   İndirdiğiniz .deb paketini kurun
-
-*   Eğer kurulum platformunuz için uygun paket yoksa gem yoluyla kurulum
-    yapabilirsiniz
+*  Sisteminizin güncel olduğuna ve sisteminizde Virtualbox kurulu olduğundan emin olun
 
         !sh
-        $ gem install vagrant
+        $ sudo apt-get upgrade && sudo apt-get update
 
-*   Nitekim dokümantasyonda paket vasıtasıyla kurulumun daha fazla desteklendiği
-    belirtiliyor
+http://downloads.vagrantup.com
+
+*   Linkten işletim sisteminize uygun olan son sürüm paketi indirin
+
+*   İndirdiğiniz .deb paketini sisteminize kurun, 32 bit ve 64 bit sürümler mevcut
+
+        !sh
+        $ sudo dpkg -i vagrant_1.3.1_i686.deb
 
 *   Herşey yolunda gittiyse vagrant komutlarını çalıştırabiliyor olmalısınız
 
@@ -116,7 +115,7 @@ http://downloads.vagrantup.com/tags/v1.0.5
 
 Vagrant herşeyden önce sanal makine kutularına ihtiyaç duyuyor
 
-*   İlk olarak bize gereken kutunun adı "Base Box" yani temel kutu
+*   Bu kutulara temel kutu (base box) deniyor
 
 *   Bu temel kutu, yine sanal makine kutuları oluşturmak için kullanılıyor
 
@@ -139,11 +138,15 @@ Proje kutuları temel kutudan oluşturuluyor
         !sh
         ~/.vagrant.d/boxes
 
-Eğer vagrant başarılı bir şekilde kurulmuşsa "Base" adında bir kutu burada belirmiş olmalı
+*   Kutuların tek farkı oluşturmak istediğiniz sanal makinenin işletim sistemleri
 
-*   Her defasında bu dizin altında kutularımızı mı arayacağız?
+*   Bu ayrımı kutulara o dağıtımın sürüm etiketi verilerek belirleniyor
 
-*   Liste boş ya da sadece "Base" kutusundan ibaretse dert değil çözümü var
+*   Örneğin Ubuntu 12.04 sürümünün etiketi **Precise Pangolin**
+
+*   Ubuntu 12.04 kuracağımız vagrant temel kutumuzun adı da **precise** olacak
+
+*   Bu şart değil, temel kutunuzun adı istediğiniz herhangi bir isim olabilir, ancak konvansiyon bu şekilde
 
 ---
 
@@ -179,7 +182,7 @@ Eğer vagrant başarılı bir şekilde kurulmuşsa "Base" adında bir kutu burad
 
 ---
 
-##  Lucid32
+## Precise32
 
 Bu bir temel kutu
 
@@ -187,9 +190,11 @@ Bu bir temel kutu
 
 Sanal makine oluşturduğumuzda mimari tercihimiz her zaman 32 bit
 
-*   Bu yüzden kutu olarak lucid32 yi seçiyoruz
+*   Kutu adının precise olmasının sebebi bu folyoda örnek olarak Ubuntu 12.04 imajı hazırlanacak olması
 
-Vagrant sanal makineleri oluştururken Virtualbox sayesinde lucid32 imajının
+*   Bu yüzden kutumuza isim olarak precise32 yi seçiyoruz
+
+Vagrant sanal makineleri oluştururken Virtualbox sayesinde precise32 imajının
 bire bir kopyaları üzerinde çalışmaya olanak sağlıyor
 
 *   Bu dilediğimiz gibi sanal makine üzerinde değişiklik yapabilmemizi mümkün
@@ -197,21 +202,28 @@ bire bir kopyaları üzerinde çalışmaya olanak sağlıyor
 
 ---
 
-##  Lucid32
+##  Precise32
 
 *   Kutuyu vagrantla locale ekleyin
 
         !sh
-        $ vagrant box add lucid32 http://files.vagrantup.com/lucid32.box
+        $ vagrant box add precise32 http://files.vagrantup.com/precise32.box
 
-*   Bu kutu temel kutularınızda görünüyor olmalı
+*   Hali hazırda bir çok işletim sisteminin temel kutuları internette bulunmakta
+
+http://www.vagrantbox.es/
+
+*   Yukarıdaki adresten isteğinize göre bir çok kutu imajı indirebilirsiniz
+
+*   Eklediğiniz kutu temel kutularınızda görünüyor olmalı
 
         !sh
         $ vagrant box list
-        -> base
-        -> lucid32
+        -> precise32 (virtualbox)
 
 *   Kutumuz yeni proje kutuları oluşturmak için hazır durumda
+
+*   Aynı şekilde başka temel kutuları sisteme indirebilirsiniz, birden çok temel kutuyla çalışmak mümkün
 
 ---
 
@@ -245,7 +257,7 @@ Vagrantfile içersinde temel kutuyu tanımla
         !sh
         config.vm.box = "base"
 
-*   Bu kısmı "base" yerine "lucid32" olarak değiştir
+*   Bu kısmı "base" yerine "precise32" olarak ya da sistemde var olan başka bir sanal imajla değiştir
 
 *   Projeyi başlattığınızda vagrant, Vagrantfile dosyasını kullanarak proje sanal
     sistemini oluşturacak
@@ -258,7 +270,7 @@ Vagrantfile içersinde temel kutuyu tanımla
 
         !sh
         $ vagrant up
-        -> [default] Importing base box 'lucid32'...
+        -> [default] Importing base box 'precise32'...
         -> [default] Matching MAC address for NAT networking...
         -> [default] Clearing any previously set forwarded ports...
         -> [default] Forwarding ports...
@@ -279,9 +291,9 @@ Vagrantfile içersinde temel kutuyu tanımla
 
         !sh
         $ vagrant ssh
-        -> Linux lucid32 2.6.32-38-server #83-Ubuntu SMP Wed Jan 4 11:26:59 UTC
+        -> Linux precise32 2.6.32-38-server #83-Ubuntu SMP Wed Jan 4 11:26:59 UTC
         2012 x86_64 GNU/Linux
-        -> Ubuntu 10.04.4 LTS
+        -> Ubuntu 12.04 LTS
         ->
         -> Welcome to the Ubuntu Server!
         ->  * Documentation:  http://www.ubuntu.com/server/doc
@@ -290,7 +302,7 @@ Vagrantfile içersinde temel kutuyu tanımla
         ->
         -> Welcome to your Vagrant-built virtual machine.
         -> Last login: Fri Sep 14 07:31:39 2012 from 10.0.2.2
-        -> vagrant@lucid64:~$
+        -> vagrant@precise32:~$
 
 *   Sanal makine kullanıma hazır
 
@@ -347,7 +359,5 @@ Yoket VM'i projeniz için oluşturulmuş diskten siler
 ##  Kaynak
 
 ![vagrant-logo](media/vagrant-logo.png)
-
-*   http://alperkarapinar.com/blog/2012/10/14/awara-hoon/
 
 *   http://www.vagrantup.com
