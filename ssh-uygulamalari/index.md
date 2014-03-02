@@ -54,7 +54,7 @@ http://aydintd.me/
 
 *   Kasım 2008' de SSH'ın tüm sürümlerinde teorik bir güvenlik açığı farkedildi
 
-    -   Açık şu şekildeydi: Şifrelenmiş metnin bir bloğundan düz metnin, 32 bit üzerinde bir düz metin dönüşümüne izin veren bir güvenlik açığı
+    -   Açık şu şekildeydi: Şifrelenmiş metindeki bir bloğun, 32 bit üzerinde bir düz metin dönüşümüne izin veren bir güvenlik açığı
 
 *   SSH'da, kötü niyetli kişi sisteme root kullanıcı hesabıyla giriş hakkı elde ettiği anda, SSH protokolünü rahatlıkla geçer
 
