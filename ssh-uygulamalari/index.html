@@ -1,0 +1,3530 @@
+<!DOCTYPE html>
+<!--
+  Copyright 2010 Google Inc.
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+  Original slides: Marcin Wichary (mwichary@google.com)
+  Modifications: Ernest Delgado (ernestd@google.com)
+                 Alex Russell (slightlyoff@chromium.org)
+
+  landslide modifications: Adam Zapletal (adamzap@gmail.com)
+                           Nicolas Perriault (nperriault@gmail.com)
+-->
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta id="viewport" name="viewport" content="user-scalable=no" />
+    <title>SSH ve Uygulamalar&#305;</title>
+    <!-- Styles -->
+    
+    <style type="text/css" media="print">
+      * {
+    margin: 0;
+    padding: 0;
+}
+
+@page {
+    size: landscape;
+}
+
+body {
+    font: 100% "Lucida Grande", "Trebuchet MS", Verdana, sans-serif;
+    padding: 0;
+    margin: 0;
+}
+
+div.slide {
+    min-width: 800px;
+    min-height: 600px;
+    padding: 1em;
+    overflow: hidden;
+    page-break-after: always;
+    border: 1px solid black;
+    border-radius: 20px;
+}
+
+div.slide div.inner {
+    width: 800px;
+    height: 600px;
+    margin: auto;
+    display: table-cell;
+}
+
+h1 {
+    font-size: 2.4em;
+}
+
+h2 {
+    font-size: 1.4em;
+}
+
+h3 {
+    margin: 1em 0;
+}
+
+ul {
+    margin: 0;
+    padding: 0;
+}
+
+p, li, pre {
+    margin: 1em 0;
+}
+
+li {
+    margin-left: 2em;
+}
+
+a {
+    color: #000000;
+}
+
+pre, code {
+    max-width: 800px;
+    background: #eee;
+    font-family: Monaco, monospace;
+    font-size: 90%;
+}
+
+pre {
+    padding: .2em .5em;
+    overflow: hidden;
+    border-radius: .8em;
+}
+
+code {
+    padding: 0 .2em;
+}
+
+.slide header:only-child h1 {
+  line-height: 180%;
+  text-align: center;
+  display: table-cell;
+  vertical-align: middle;
+  height: 600px;
+  width: 800px;
+  font-size: 48px;
+  margin-top:100px;
+  margin-bottom:100px;
+}
+
+#toc, #help, .slide aside, .slide footer, .slide .notes,
+.presenter_notes, #current_presenter_notes, #presenter_note {
+  display: none;
+}
+
+    </style>
+    <style type="text/css" media="screen, projection">
+      body {
+  font: 14px "Lucida Grande", "Trebuchet MS", Verdana, sans-serif;
+  background: #fff;
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+}
+
+div.presentation {
+  position: absolute;
+  width: 100%;
+  display: table-cell;
+  vertical-align: middle;
+  height: 100%;
+  background: inherit;
+}
+
+div.slides, body.expose div.slides.nocontext {
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  position: absolute;
+  display: block;
+  background-color: #fff;
+}
+
+
+div.slides.nocontext {
+  width: 900px;
+  margin: 0 auto;
+  overflow: hidden;
+  position: relative;
+  left: auto;
+  top: auto;
+}
+
+div.slide {
+  display: none;
+  position: absolute;
+  overflow: hidden;
+  width: 900px;
+  height: 700px;
+  left: 50%;
+  top: 50%;
+  margin-top: -350px;
+  background: -webkit-gradient(linear, left bottom, left top, from(#fff), to(#eeeeec));
+  background-color: #eee;
+  background: -moz-linear-gradient(bottom, #fff, #eeeeec);
+  -webkit-transition: margin 0.25s ease-in-out;
+  -moz-transition: margin 0.25s ease-in-out;
+  -o-transition: margin 0.25s ease-in-out;
+  border-top-right-radius: 20px;
+  -moz-border-radius-topright: 20px;
+  -webkit-border-top-right-radius: 20px;
+  border-bottom-left-radius: 0px;
+  -moz-border-radius-bottomleft: 0px;
+  -webkit-border-bottom-left-radius: 0px;
+  border-top-left-radius: 20px;
+  -moz-border-radius-topleft: 20px;
+  -webkit-border-top-left-radius: 20px;
+  border-bottom-right-radius: 0px;
+  -moz-border-radius-bottomright: 0px;
+  -webkit-border-bottom-right-radius: 0px;
+
+}
+
+div.slide p {
+  font-size: 20px;
+}
+
+.slide.far-past {
+  display: block;
+  margin-left: -2400px;
+}
+
+.slide.past {
+  display: block;
+  margin-left: -1400px;
+}
+
+.slide.current {
+  display: block;
+  margin-left: -450px;
+}
+
+.slide.future {
+  display: block;
+  margin-left: 500px;
+}
+
+.slide.far-future {
+  display: block;
+  margin-left: 1500px;
+}
+
+body.three-d div.slides {
+  -webkit-transform: translateX(50px) scale(0.8) rotateY(10deg);
+  -moz-transform: translateX(50px) scale(0.8) rotateY(10deg);
+  -o-transform: translateX(50px) scale(0.8) rotateY(10deg);
+}
+
+
+/* Content */
+
+header:not(:only-child) {
+  font-family: "Lucida Grande", "Trebuchet MS", Verdana, sans-serif;
+  font-weight: normal;
+  font-size: 50px;
+  letter-spacing: -.05em;
+  color: white;
+  color: black;
+  text-shadow: rgba(0, 0, 0, 0.2) 0 2px 5px;
+  position: absolute;
+  left: 30px;
+  top: 25px;
+  margin: 0;
+  padding: 0;
+}
+
+header h1, header h2, header h3, header h4, header h5, header h6 {
+  display: inline;
+  font-size: 100%;
+  font-weight: normal;
+  padding: 0;
+  margin: 0;
+}
+
+header h2:first-child {
+  margin-top: 0;
+}
+
+section, .slide header:only-child h1 {
+  font-family: "Lucida Grande", "Trebuchet MS", Verdana, sans-serif;
+  color: #3f3f3f;
+  text-shadow: rgba(0, 0, 0, 0.2) 0 2px 5px;
+  margin-left: 30px;
+  margin-right: 30px;
+  margin-top: 100px;
+  display: block;
+  overflow: hidden;
+}
+
+section img.align-center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+section img.align-right {
+  display: block;
+  margin-left: auto;
+  margin-right: 0;
+}
+
+section img.align-left {
+  display: block;
+  margin-right: auto;
+  margin-left: 0;
+}
+
+a {
+  color: inherit;
+  display: inline-block;
+  text-decoration: none;
+  line-height: 110%;
+  border-bottom: 2px solid #3f3f3f;
+}
+
+pre, code, tt {
+  font-family: Monaco, Consolas, 'Bitstream Vera Sans Mono', 'Lucida Console', FreeMono, Courier, monospace;
+}
+
+pre, .gist .gist-file .gist-data {
+  font-size: 18px;
+  max-height: 485px;
+  padding: 0.25em 0.5em !important;
+  overflow: auto;
+}
+
+/* render a nice scrollbar in overflowed pre area's */
+::-webkit-scrollbar {
+  height: 8px;
+  width: 8px;
+}
+::-webkit-scrollbar-thumb {
+  background: -webkit-gradient(linear, left bottom, left top, from(#777), to(#bbd));
+  -webkit-border-radius: 1ex;
+}
+::-webkit-scrollbar-corner {
+  background: #dedede;
+}
+
+blockquote {
+  border-left: solid 8px #FFF;
+  padding: .1ex 1ex;
+  font-style: italic;
+}
+
+li {
+  padding: 10px 0;
+  font-size: 20px;
+}
+
+li pre { margin-left: 0em; }
+
+.slide header:only-child h1 {
+  line-height: 180%;
+  text-align: center;
+  display: table-cell;
+  vertical-align: middle;
+  height: 700px;
+  width: 900px;
+  font-size: 50px;
+  margin-top:100px;
+  margin-bottom:100px;
+}
+
+.sidebar {
+  background: -webkit-gradient(linear, top right, bottom right, from(#dde), to(#fff));
+  -webkit-transition: margin 0.25s ease-in-out;
+  background-color: #eee;
+  background: -moz-linear-gradient(right, #dde, #fff);
+  border-right: 5px solid #ccd;
+  z-index: 9999999;
+  height: 100%;
+  overflow: hidden;
+  top: 0;
+  position: absolute;
+  display: block;
+  margin: 0;
+  margin-left: -400px;
+  padding: 10px 16px;
+  overflow: auto;
+  -webkit-transition: margin 0.2s ease-in-out;
+  -moz-transition: margin 0.2s ease-in-out;
+  -o-transition: margin 0.2s ease-in-out;
+}
+
+.sidebar h2 {
+  text-shadow: rgba(0, 0, 0, 0.2) 0 2px 5px;
+  margin: 0 0 16px;
+  padding: 0;
+}
+
+.sidebar table {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  border-collapse: collapse;
+}
+
+.sidebar table caption {
+  display: none;
+}
+
+.sidebar tr {
+  margin: 2px 0;
+  border-bottom: 1px solid #ccc;
+}
+
+.sidebar th {
+  text-align: left;
+  font-weight: normal;
+  max-width: 300px;
+  overflow: hidden;
+}
+
+.sidebar tr.sub th {
+  text-indent: 20px;
+}
+
+.sidebar td {
+  text-align: right;
+  min-width: 20px;
+}
+
+.sidebar a {
+  display: block;
+  text-decoration: none;
+  border-bottom: none;
+  padding: 4px 0;
+}
+
+.sidebar tr.active {
+  background: #ff0;
+}
+
+aside {
+  display: none;
+}
+  aside.source {
+    position: absolute;
+    bottom: 6px;
+    left: 10px;
+    text-indent: 10px;
+  }
+  aside.page_number {
+    position: absolute;
+    bottom: 6px;
+    right: 10px;
+    text-indent: 10px;
+  }
+
+.notes {
+  display: none;
+  padding: 10px;
+  background: #ccc;
+  border-radius: 10px;
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+}
+  div.slide p.notes {
+    font-size: 90%;
+}
+
+img { display: block; margin: auto; }
+
+/* Expose */
+
+body.expose div.slides {
+  float: left;
+  position: relative;
+  overflow: auto;
+  margin-bottom: 10px;
+}
+
+body.expose div.slide {
+  display: block;
+  float: left;
+  position: relative;
+  left: auto !important;
+  top: auto !important;
+  margin: 10px !important;
+  -webkit-transition: none;
+  -moz-transition: none;
+  -o-transition: none;  
+  -moz-transform: scale(.33, .33);
+  -moz-transform-origin: 0 0;
+  -webkit-transform: scale(.33, .33);
+  -webkit-transform-origin: 0 0;
+  -o-transform: scale(.33, .33);
+  -o-transform-origin: 0 0;
+  -webkit-transition: none;
+  -moz-transition: none;
+  -o-transition: none;
+  cursor: pointer;
+}
+
+body.expose div.slide:hover {
+  background: -webkit-gradient(linear, left bottom, left top, from(#bdd), to(#fff));
+  background-color: #eee;
+  background: -moz-linear-gradient(bottom, #bdd, #fff);
+}
+
+body.expose .slide-wrapper {
+  float: left;
+  position: relative;
+  margin: .5%;
+  width: 300px;
+  height: 233px;
+}
+
+body.expose .slide footer {
+}
+
+body.expose .slide .inner {
+}
+
+body.expose .slide.far-past,
+body.expose .slide.past,
+body.expose .slide.future,
+body.expose .slide.far-future {
+  margin-left: 0;
+}
+
+body.expose .slide.current {
+  background: -webkit-gradient(linear, left bottom, left top, from(#ddb), to(#fff));
+  background-color: #eee;
+  background: -moz-linear-gradient(bottom, #ddb, #fff);
+  border: 16px solid #fff;
+  -moz-transform: scale(.315, .315);
+  -moz-transform-origin: 0 0;
+  -webkit-transform: scale(.315, .315);
+  -webkit-transform-origin: 0 0;
+  -o-transform: scale(.315, .315);
+  -o-transform-origin: 0 0;
+}
+
+/* Navigator */
+
+nav {
+  position: fixed;
+  z-index: 10;
+  background-color: black;
+  opacity: 0.0;
+  text-align: center;
+  top: 1%;
+  width: 100px;
+  height: 98%;
+}
+nav:hover, nav.hover {
+  opacity: 0.4;
+}
+
+nav#left {
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+  left: 0;
+}
+nav#right {
+  border-bottom-left-radius: 5px;
+  border-top-left-radius: 5px;
+  right: 0;
+}
+
+nav menu {
+  padding: 0;
+  display: block;
+  height: 40%;
+  width: inherit;
+  position: fixed;
+}
+nav menu#top {
+  top: 5%;
+}
+nav menu#bottom {
+  top: auto;
+  bottom: 3%;
+}
+
+nav menu button {
+  background-color: #222;
+  border: none;
+  color: white;
+  cursor: pointer;
+  text-align: center;
+  width: 100%;
+  height: 19%;
+  font-size: 24px;
+  font-family: monospace;
+  margin-top: 1%;
+}
+nav menu button:hover {
+  opacity: 1.0;
+}
+nav menu button#prev, nav menu button#next {
+  margin-top: 0;
+  margin-bottom: 1%;
+  padding-top: 0;
+  height: 25%;
+  font-size: 40px;
+}
+
+/* Pygments default theme */
+.hll { background-color: #ffffcc }
+.c { color: #408080; font-style: italic } /* Comment */
+.err { border: 1px solid #FF0000 } /* Error */
+.k { color: #008000; font-weight: bold } /* Keyword */
+.o { color: #666666 } /* Operator */
+.cm { color: #408080; font-style: italic } /* Comment.Multiline */
+.cp { color: #BC7A00 } /* Comment.Preproc */
+.c1 { color: #408080; font-style: italic } /* Comment.Single */
+.cs { color: #408080; font-style: italic } /* Comment.Special */
+.gd { color: #A00000 } /* Generic.Deleted */
+.ge { font-style: italic } /* Generic.Emph */
+.gr { color: #FF0000 } /* Generic.Error */
+.gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.gi { color: #00A000 } /* Generic.Inserted */
+.go { color: #808080 } /* Generic.Output */
+.gp { color: #000080; font-weight: bold } /* Generic.Prompt */
+.gs { font-weight: bold } /* Generic.Strong */
+.gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.gt { color: #0040D0 } /* Generic.Traceback */
+.kc { color: #008000; font-weight: bold } /* Keyword.Constant */
+.kd { color: #008000; font-weight: bold } /* Keyword.Declaration */
+.kn { color: #008000; font-weight: bold } /* Keyword.Namespace */
+.kp { color: #008000 } /* Keyword.Pseudo */
+.kr { color: #008000; font-weight: bold } /* Keyword.Reserved */
+.kt { color: #B00040 } /* Keyword.Type */
+.m { color: #666666 } /* Literal.Number */
+.s { color: #BA2121 } /* Literal.String */
+.na { color: #7D9029 } /* Name.Attribute */
+.nb { color: #008000 } /* Name.Builtin */
+.nc { color: #0000FF; font-weight: bold } /* Name.Class */
+.no { color: #880000 } /* Name.Constant */
+.nd { color: #AA22FF } /* Name.Decorator */
+.ni { color: #999999; font-weight: bold } /* Name.Entity */
+.ne { color: #D2413A; font-weight: bold } /* Name.Exception */
+.nf { color: #0000FF } /* Name.Function */
+.nl { color: #A0A000 } /* Name.Label */
+.nn { color: #0000FF; font-weight: bold } /* Name.Namespace */
+.nt { color: #008000; font-weight: bold } /* Name.Tag */
+.nv { color: #19177C } /* Name.Variable */
+.ow { color: #AA22FF; font-weight: bold } /* Operator.Word */
+.w { color: #bbbbbb } /* Text.Whitespace */
+.mf { color: #666666 } /* Literal.Number.Float */
+.mh { color: #666666 } /* Literal.Number.Hex */
+.mi { color: #666666 } /* Literal.Number.Integer */
+.mo { color: #666666 } /* Literal.Number.Oct */
+.sb { color: #BA2121 } /* Literal.String.Backtick */
+.sc { color: #BA2121 } /* Literal.String.Char */
+.sd { color: #BA2121; font-style: italic } /* Literal.String.Doc */
+.s2 { color: #BA2121 } /* Literal.String.Double */
+.se { color: #BB6622; font-weight: bold } /* Literal.String.Escape */
+.sh { color: #BA2121 } /* Literal.String.Heredoc */
+.si { color: #BB6688; font-weight: bold } /* Literal.String.Interpol */
+.sx { color: #008000 } /* Literal.String.Other */
+.sr { color: #BB6688 } /* Literal.String.Regex */
+.s1 { color: #BA2121 } /* Literal.String.Single */
+.ss { color: #19177C } /* Literal.String.Symbol */
+.bp { color: #008000 } /* Name.Builtin.Pseudo */
+.vc { color: #19177C } /* Name.Variable.Class */
+.vg { color: #19177C } /* Name.Variable.Global */
+.vi { color: #19177C } /* Name.Variable.Instance */
+.il { color: #666666 } /* Literal.Number.Integer.Long */
+.lineno { padding-right: 10px } /* A few space after linenos */
+
+/* Presenter Mode */
+
+body.presenter_view div.slide {
+  display: inline;
+  position: absolute;
+  overflow: hidden;
+  -moz-transform: scale(.5, .5);
+  -moz-transform-origin: 0 0;
+  -webkit-transform: scale(.5, .5);
+  -webkit-transform-origin: 0 0;
+  -o-transform: scale(.5, .5);
+  -o-transform-origin: 0 0;
+  margin-top: -300px;
+}
+
+body.presenter_view .slide.far-past {
+  display: block;
+  margin-left: -1500px;
+}
+
+body.presenter_view .slide.past {
+  display: block;
+  margin-left: -975px;
+}
+
+body.presenter_view .slide.current {
+  display: block;
+  margin-left: -475px;
+  border: 8px solid maroon;
+  z-index: 2;
+}
+
+body.presenter_view .slide.future {
+  display: block;
+  margin-left: 25px;
+  z-index: 1;
+}
+
+body.presenter_view .slide.far-future {
+  display: block;
+  margin-left: 525px;
+}
+
+body.presenter_view div#current_presenter_notes {
+  visibility: visible;
+  display: block;
+  position: absolute;
+  overflow: auto;
+  vertical-align: middle;
+  left: 50%;
+  top: 50%;
+  margin-left: -475px;
+  margin-top: 100px;
+  z-index: 2;
+  width: 950px;
+  border-style: solid;
+  height: 30%;
+  background-color: silver;
+}
+
+body.presenter_view div#current_presenter_notes section {
+  font-family: "Lucida Grande", "Trebuchet MS", Verdana, sans-serif;
+  color: black;
+  text-shadow: rgba(0, 0, 0, 0.2) 0 2px 5px;
+  display: block;
+  overflow: visible;
+  position: relative;
+  background-color: #fffeff;
+  height: 120px;
+  margin-right: 30px;
+  margin-top: 60px;
+  margin-left: 30px;
+  padding-right: 10px;
+  padding-left: 10px;
+  padding-top: 10px;
+}
+
+body.presenter_view div#current_presenter_notes section p {
+  margin: 0;
+}
+
+body.presenter_view div#current_presenter_notes h1 {
+  font-size: 50%;
+  display: block;
+}
+
+div#current_presenter_notes {
+  display: none;
+}
+
+div.slide div.presenter_notes {
+  display: none;
+}
+
+#blank {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: black;
+  width: 100%;
+  height: 100%;
+  z-index: 64;
+  display: none;
+}
+
+    </style>
+    
+    
+      
+      <style type="text/css" media="screen, projection">
+        /* begin default.css */
+
+ul li {
+  list-style: none;
+  list-style-type: none;
+  margin-left: -26px;
+  padding-left: 1em;
+  text-indent: -32px;
+}
+ul li p:first-child {
+  margin-left: 3px;
+}
+ul li p {
+  margin-left: 32px;
+}
+ul li pre { text-indent: 0; }
+ul li:before {
+  content: '\25B6 \0020';
+  color: #9c000d;
+  line-height:80%;
+  vertical-align: 16%;
+  padding-right: 0.4em;
+}
+li ul li:before {
+  content: '\26AB \0020';
+  vertical-align: 3%;
+}
+ul li:first {
+  content: ' ';
+}
+
+li p:first-child { display: inline; }
+li pre { margin-left: 2em; }
+
+a {
+  text-decoration: none;
+  color: #1571e1;
+  border: none;
+  display: inline !important;
+}
+
+pre, code, tt {
+  font-family: Monaco, Consolas, 'Bitstream Vera Sans Mono', 'Lucida Console', FreeMono, Courier, monospace;
+}
+
+pre, .gist .gist-file .gist-data {
+  font-size: 18px;
+  max-height: 485px;
+  padding-top: 0.25em !important;
+  padding-right: 0.5em !important;
+  padding-left: 0.5em !important;
+  overflow: auto;
+}
+
+code {
+  background: #ffffff;
+  padding: 0.1em;
+  padding-right: 0.15em;
+  border-top-right-radius: 0.2em;
+  -moz-border-radius-topright: 0.2em;
+  -webkit-border-top-right-radius: 0.2em;
+  border-bottom-left-radius: 2px;
+  -moz-border-radius-bottomleft: 0.2em;
+  -webkit-border-bottom-left-radius: 0.2em;
+  border-top-left-radius: 0.2em;
+  -moz-border-radius-topleft: 0.2em;
+  -webkit-border-top-left-radius: 0.2em;
+  border-bottom-right-radius: 0.2em;
+  -moz-border-radius-bottomright: 0.2em;
+  -webkit-border-bottom-right-radius: 0.2em;
+}
+pre, pre code {
+  background: none;
+}
+
+div.slide {
+  background: -webkit-gradient(linear, left bottom, left top, from(#eee), to(#eaeaea));
+  background-color: #eee;
+  background: -moz-linear-gradient(bottom, #eee, #eaeaea);
+  border-top-right-radius: 15px;
+  -moz-border-radius-topright: 15px;
+  -webkit-border-top-right-radius: 15px;
+  border-bottom-left-radius: 2px;
+  -moz-border-radius-bottomleft: 15px;
+  -webkit-border-bottom-left-radius: 15px;
+  border-top-left-radius: 15px;
+  -moz-border-radius-topleft: 15px;
+  -webkit-border-top-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+  -moz-border-radius-bottomright: 15px;
+  -webkit-border-bottom-right-radius: 15px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: -webkit-gradient(linear, left bottom, left top, from(#9c000d), to(#eee));
+}
+::-webkit-scrollbar-thumb:horizontal { /* no horizontal scrollbar */
+  background: none;
+}
+
+.slide.task {
+  background: #ffffe0;
+  border: 1px solid #eee;
+  border-radius: 20px;
+}
+.slide.task header {
+  color: #9c000d;
+}
+
+.slide.achtung {
+  background: #d7e5f5;
+  border: 1px solid #eee;
+  border-radius: 20px;
+}
+.slide.achtung header {
+  color: #9c000d;
+}
+
+.slide.wrong {
+  background: #ffdeb5;
+  border: 1px solid #eee;
+  border-radius: 20px;
+}
+.slide.wrong header {
+  color: #9c000d;
+}
+
+.slide.correct {
+  background: #a2dcc1;
+  border: 1px solid #eee;
+  border-radius: 20px;
+  font-color: #f5f5f5;
+}
+
+.slide.first {
+  text-align: center;
+}
+.slide.first header {
+  color: #9c000d;
+  width: 900px;
+  padding-top: 30px;
+  margin-left: 0px;
+  padding-left: 0px;
+  margin-top: 40px;
+  margin-bottom: 20px;
+  left: 0px;
+  color: white;
+  background-color: #9c000d;
+  -moz-border-radius: 0.15em 0.15em 0.15em 0.15em;
+  border-radius: 0.15em 0.15em 0.15em 0.15em;
+  height: 80px;
+}
+.slide.first section {
+  padding-top: 90px;
+}
+
+.section {
+  color: black;
+}
+
+/* Pygments */
+.err { border: 0px; }
+
+/* Definition lists */
+
+dl {
+  margin-top: 20px;
+  padding: 8px;
+}
+
+dt, dd {
+  padding: 10px 0;
+  font-size: 20px;
+}
+
+dt {
+  display: inline;
+  padding: 8px;
+  color: white;
+  background-color: #9c000d;
+  border-radius: 4px;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  margin-right: 12px;
+}
+
+dd {
+  margin-right: 30px;
+  margin: 20px;
+  padding: 20px;
+  color: #666;
+  -moz-border-radius: 3px;
+  -moz-box-shadow: 0 1px 2px #d1d1d1;
+  -webkit-border-radius: 3px;
+  -webkit-box-shadow: 0 1px 2px #d1d1d1;
+  background: #fafafa;
+  border: #ccc 1px solid;
+  border-radius: 3px;
+  box-shadow: 0 1px 2px #d1d1d1;
+}
+
+dd p {
+  margin: 0px;
+  padding: 0px;
+}
+
+/*
+ * Tables
+ *
+ * http://johnsardine.com/freebies/dl-html-css/simple-little-tab/
+ */
+
+div.slide table:not(.highlighttable) {
+  margin-top: 20px;
+  margin-bottom: 50px;
+  margin-left: auto;
+  margin-right: auto;
+  color: #666;
+  -moz-border-radius: 3px;
+  -moz-box-shadow: 0 1px 2px #d1d1d1;
+  -webkit-border-radius: 3px;
+  -webkit-box-shadow: 0 1px 2px #d1d1d1;
+  background: #eaebec;
+  border: #ccc 1px solid;
+  border-radius: 3px;
+  box-shadow: 0 1px 2px #d1d1d1;
+  text-shadow: 1px 1px 0px #fff;
+  font-size: 20px;
+}
+
+div.slide table:not(.highlighttable) tr.even td {
+  background: #f6f6f6;
+  background: -webkit-gradient(linear, left top, left bottom, from(#f8f8f8), to(#f6f6f6));
+  background: -moz-linear-gradient(top, #f8f8f8, #f6f6f6);
+}
+
+div.slide table:not(.highlighttable) th {
+  padding: 21px 25px 22px 25px;
+  border-bottom: 1px solid #e0e0e0; border-top: 1px solid #fafafa;
+  background: #ededed;
+  background: -webkit-gradient(linear, left top, left bottom, from(#ededed), to(#ebebeb));
+  background: -moz-linear-gradient(top, #ededed, #ebebeb);
+}
+
+div.slide table:not(.highlighttable) th:first-child {
+  padding-left: 20px;
+  text-align: left
+}
+
+div.slide table:not(.highlighttable) a:visited {
+  color: #999999;
+  font-weight: bold;
+  text-decoration: none
+}
+
+div.slide table:not(.highlighttable) a:active,
+div.slide table:not(.highlighttable) a:hover {
+  color: #bd5a35;
+  text-decoration: underline
+}
+
+div.slide table:not(.highlighttable) a:link {
+  color: #666;
+  font-weight: bold;
+  text-decoration: none
+}
+
+div.slide table:not(.highlighttable) tr {
+  padding-left: 20px;
+  text-align: center
+}
+
+div.slide table:not(.highlighttable) tr:first-child th:first-child {
+  -moz-border-radius-topleft: 3px;
+  -webkit-border-top-left-radius: 3px;
+  border-top-left-radius: 3px;
+}
+
+div.slide table:not(.highlighttable) tr:first-child th:last-child {
+  -moz-border-radius-topright: 3px;
+  -webkit-border-top-right-radius: 3px;
+  border-top-right-radius: 3px;
+}
+
+div.slide table:not(.highlighttable) tr:last-child td {    border-bottom: 0 }
+
+div.slide table:not(.highlighttable) tr:last-child td:first-child {
+  -moz-border-radius-bottomleft: 3px;
+  -webkit-border-bottom-left-radius: 3px;
+  border-bottom-left-radius: 3px;
+}
+
+div.slide table:not(.highlighttable) tr:last-child td:last-child {
+  -moz-border-radius-bottomright: 3px;
+  -webkit-border-bottom-right-radius: 3px;
+  border-bottom-right-radius: 3px;
+}
+
+div.slide table:not(.highlighttable) tr:hover td {
+  background: #f2f2f2;
+  background: -webkit-gradient(linear, left top, left bottom, from(#f2f2f2), to(#f0f0f0));
+  background: -moz-linear-gradient(top, #f2f2f2, #f0f0f0);
+}
+
+div.slide table:not(.highlighttable) tr td {
+  padding: 18px;
+  border-bottom: 1px solid #e0e0e0; border-left: 1px solid #e0e0e0; border-top: 1px solid #ffffff;
+  background: #fafafa;
+  background: -webkit-gradient(linear, left top, left bottom, from(#fbfbfb), to(#fafafa));
+  background: -moz-linear-gradient(top, #fbfbfb, #fafafa);
+}
+
+div.slide table:not(.highlighttable) tr td:first-child {
+  padding-left: 20px;
+  border-left: 0;
+  text-align: left
+}
+
+/* end default.css */
+
+      </style>
+      
+    
+    <!-- /Styles -->
+    <!-- Javascripts -->
+    
+    <script>
+      function main() {
+    // Since we don't have the fallback of attachEvent and
+    // other IE only stuff we won't try to run JS for IE.
+    // It will run though when using Google Chrome Frame
+    if (document.all) { return; }
+
+    var currentSlideNo;
+    var notesOn = false;
+    var expanded = false;
+    var hiddenContext = false;
+    var blanked = false;
+    var slides = document.getElementsByClassName('slide');
+    var touchStartX = 0;
+    var spaces = /\s+/, a1 = [''];
+    var tocOpened = false;
+    var helpOpened = false;
+    var overviewActive = false;
+    var modifierKeyDown = false;
+    var scale = 1;
+    var showingPresenterView = false;
+    var presenterViewWin = null;
+    var isPresenterView = false;
+
+    var str2array = function(s) {
+        if (typeof s == 'string' || s instanceof String) {
+            if (s.indexOf(' ') < 0) {
+                a1[0] = s;
+                return a1;
+            } else {
+                return s.split(spaces);
+            }
+        }
+        return s;
+    };
+
+    var trim = function(str) {
+        return str.replace(/^\s\s*/, '').replace(/\s\s*$/, '');
+    };
+
+    var addClass = function(node, classStr) {
+        classStr = str2array(classStr);
+        var cls = ' ' + node.className + ' ';
+        for (var i = 0, len = classStr.length, c; i < len; ++i) {
+            c = classStr[i];
+            if (c && cls.indexOf(' ' + c + ' ') < 0) {
+                cls += c + ' ';
+            }
+        }
+        node.className = trim(cls);
+    };
+
+    var removeClass = function(node, classStr) {
+        var cls;
+        if (!node) {
+            throw 'no node provided';
+        }
+        if (classStr !== undefined) {
+            classStr = str2array(classStr);
+            cls = ' ' + node.className + ' ';
+            for (var i = 0, len = classStr.length; i < len; ++i) {
+                cls = cls.replace(' ' + classStr[i] + ' ', ' ');
+            }
+            cls = trim(cls);
+        } else {
+            cls = '';
+        }
+        if (node.className != cls) {
+            node.className = cls;
+        }
+    };
+
+    var getSlideEl = function(slideNo) {
+        if (slideNo > 0) {
+            return slides[slideNo - 1];
+        } else {
+            return null;
+        }
+    };
+
+    var getSlideTitle = function(slideNo) {
+        var el = getSlideEl(slideNo);
+        if (el) {
+            var headers = el.getElementsByTagName('header');
+            if (headers.length > 0) {
+                return el.getElementsByTagName('header')[0].innerText;
+            }
+        }
+        return null;
+    };
+
+    var getSlidePresenterNote = function(slideNo) {
+        var el = getSlideEl(slideNo);
+        if (el) {
+            var n = el.getElementsByClassName('presenter_notes');
+            if (n.length > 0) {
+                return n[0];
+            }
+        }
+        return null;
+    };
+
+    var changeSlideElClass = function(slideNo, className) {
+        var el = getSlideEl(slideNo);
+        if (el) {
+            removeClass(el, 'far-past past current future far-future');
+            addClass(el, className);
+        }
+    };
+
+    var updateSlideClasses = function(updateOther) {
+        window.location.hash = (isPresenterView ? "presenter" : "slide") + currentSlideNo;
+
+        for (var i=1; i<currentSlideNo-1; i++) {
+            changeSlideElClass(i, 'far-past');
+        }
+
+        changeSlideElClass(currentSlideNo - 1, 'past');
+        changeSlideElClass(currentSlideNo, 'current');
+        changeSlideElClass(currentSlideNo + 1, 'future');
+
+        for (i=currentSlideNo+2; i<slides.length+1; i++) {
+            changeSlideElClass(i, 'far-future');
+        }
+
+        highlightCurrentTocLink();
+
+        processContext();
+
+        document.getElementsByTagName('title')[0].innerText = getSlideTitle(currentSlideNo);
+
+        updatePresenterNotes();
+
+        if (updateOther) { updateOtherPage(); }
+    };
+
+    var updatePresenterNotes = function() {
+        if (!isPresenterView) { return; }
+
+        var existingNote = document.getElementById('current_presenter_notes');
+        var currentNote = getSlidePresenterNote(currentSlideNo).cloneNode(true);
+        currentNote.setAttribute('id', 'presenter_note');
+
+        existingNote.replaceChild(currentNote, document.getElementById('presenter_note'));
+    };
+
+    var highlightCurrentTocLink = function() {
+        var toc = document.getElementById('toc');
+
+        if (toc) {
+            var tocRows = toc.getElementsByTagName('tr');
+            for (var i=0; i<tocRows.length; i++) {
+                removeClass(tocRows.item(i), 'active');
+            }
+
+            var currentTocRow = document.getElementById('toc-row-' + currentSlideNo);
+            if (currentTocRow) {
+                addClass(currentTocRow, 'active');
+            }
+        }
+    };
+
+    var updateOtherPage = function() {
+        if (!showingPresenterView) { return; }
+
+        var w = isPresenterView ? window.opener : presenterViewWin;
+        w.postMessage('slide#' + currentSlideNo, '*');
+    };
+
+    var nextSlide = function() {
+        if (currentSlideNo < slides.length) {
+            currentSlideNo++;
+        }
+        updateSlideClasses(true);
+    };
+
+    var prevSlide = function() {
+        if (currentSlideNo > 1) {
+            currentSlideNo--;
+        }
+        updateSlideClasses(true);
+    };
+
+    var showNotes = function() {
+        var notes = getSlideEl(currentSlideNo).getElementsByClassName('notes');
+        for (var i = 0, len = notes.length; i < len; i++) {
+            notes.item(i).style.display = (notesOn) ? 'none':'block';
+        }
+        notesOn = !notesOn;
+    };
+
+    var showSlideNumbers = function() {
+        var asides = document.getElementsByClassName('page_number');
+        var hidden = asides[0].style.display != 'block';
+        for (var i = 0; i < asides.length; i++) {
+            asides.item(i).style.display = hidden ? 'block' : 'none';
+        }
+    };
+
+    var showSlideSources = function() {
+        var asides = document.getElementsByClassName('source');
+        var hidden = asides[0].style.display != 'block';
+        for (var i = 0; i < asides.length; i++) {
+            asides.item(i).style.display = hidden ? 'block' : 'none';
+        }
+    };
+
+    var showToc = function() {
+        if (helpOpened) {
+                showHelp();
+        }
+        var toc = document.getElementById('toc');
+        if (toc) {
+            toc.style.marginLeft = tocOpened ? '-' + (toc.clientWidth + 20) + 'px' : '0px';
+            tocOpened = !tocOpened;
+        }
+        updateOverview();
+    };
+
+    var showHelp = function() {
+        if (tocOpened) {
+                showToc();
+        }
+
+        var help = document.getElementById('help');
+
+        if (help) {
+            help.style.marginLeft = helpOpened ? '-' + (help.clientWidth + 20) + 'px' : '0px';
+            helpOpened = !helpOpened;
+        }
+    };
+
+    var showPresenterView = function() {
+        if (isPresenterView) { return; }
+
+        if (showingPresenterView) {
+            presenterViewWin.close();
+            presenterViewWin = null;
+            showingPresenterView = false;
+        } else {
+            presenterViewWin = open(window.location.pathname + "#presenter" + currentSlideNo, 'presenter_notes',
+                                                                    'directories=no,location=no,toolbar=no,menubar=no,copyhistory=no');
+            showingPresenterView = true;
+        }
+    };
+
+    var switch3D = function() {
+        if (document.body.className.indexOf('three-d') == -1) {
+            document.getElementsByClassName('presentation')[0].style.webkitPerspective = '1000px';
+            document.body.className += ' three-d';
+        } else {
+            window.setTimeout('document.getElementsByClassName(\'presentation\')[0].style.webkitPerspective = \'0\';', 2000);
+            document.body.className = document.body.className.replace(/three-d/, '');
+        }
+    };
+
+    var toggleOverview = function() {
+        if (!overviewActive) {
+            addClass(document.body, 'expose');
+            overviewActive = true;
+            setScale(1);
+        } else {
+            removeClass(document.body, 'expose');
+            overviewActive = false;
+            if (expanded) {
+                setScale(scale);    // restore scale
+            }
+        }
+        processContext();
+        updateOverview();
+    };
+
+    var updateOverview = function() {
+        try {
+            var presentation = document.getElementsByClassName('presentation')[0];
+        } catch (e) {
+            return;
+        }
+
+        if (isPresenterView) {
+            var action = overviewActive ? removeClass : addClass;
+            action(document.body, 'presenter_view');
+        }
+
+        var toc = document.getElementById('toc');
+
+        if (!toc) {
+            return;
+        }
+
+        if (!tocOpened || !overviewActive) {
+            presentation.style.marginLeft = '0px';
+            presentation.style.width = '100%';
+        } else {
+            presentation.style.marginLeft = toc.clientWidth + 'px';
+            presentation.style.width = (presentation.clientWidth - toc.clientWidth) + 'px';
+        }
+    };
+
+    var computeScale = function() {
+        var cSlide = document.getElementsByClassName('current')[0];
+        var sx = cSlide.clientWidth / window.innerWidth;
+        var sy = cSlide.clientHeight / window.innerHeight;
+        return 1 / Math.max(sx, sy);
+    };
+
+    var setScale = function(scale) {
+        var presentation = document.getElementsByClassName('slides')[0];
+        var transform = 'scale(' + scale + ')';
+        presentation.style.MozTransform = transform;
+        presentation.style.WebkitTransform = transform;
+        presentation.style.OTransform = transform;
+        presentation.style.msTransform = transform;
+        presentation.style.transform = transform;
+    };
+
+    var expandSlides = function() {
+        if (overviewActive) {
+            return;
+        }
+        if (expanded) {
+            setScale(1);
+            expanded = false;
+        } else {
+            scale = computeScale();
+            setScale(scale);
+            expanded = true;
+        }
+    };
+
+    var showContext = function() {
+        try {
+            var presentation = document.getElementsByClassName('slides')[0];
+            removeClass(presentation, 'nocontext');
+        } catch (e) {}
+    };
+
+    var hideContext = function() {
+        try {
+            var presentation = document.getElementsByClassName('slides')[0];
+            addClass(presentation, 'nocontext');
+        } catch (e) {}
+    };
+
+    var processContext = function() {
+        if (hiddenContext) {
+            hideContext();
+        } else {
+            showContext();
+        }
+    };
+
+    var toggleContext = function() {
+        hiddenContext = !hiddenContext;
+        processContext();
+    };
+
+    var toggleBlank = function() {
+        blank_elem = document.getElementById('blank');
+
+        blank_elem.style.display = blanked ? 'none' : 'block';
+
+        blanked = !blanked;
+    };
+
+    var isModifierKey = function(keyCode) {
+        switch (keyCode) {
+            case 16: // shift
+            case 17: // ctrl
+            case 18: // alt
+            case 91: // command
+                return true;
+                break;
+            default:
+                return false;
+                break;
+        }
+    };
+
+    var checkModifierKeyUp = function(event) {
+        if (isModifierKey(event.keyCode)) {
+            modifierKeyDown = false;
+        }
+    };
+
+    var checkModifierKeyDown = function(event) {
+        if (isModifierKey(event.keyCode)) {
+            modifierKeyDown = true;
+        }
+    };
+
+    var handleBodyKeyDown = function(event) {
+        switch (event.keyCode) {
+            case 13: // Enter
+                if (overviewActive) {
+                    toggleOverview();
+                }
+                break;
+            case 27: // ESC
+                toggleOverview();
+                break;
+            case 37: // left arrow
+            case 33: // page up
+                event.preventDefault();
+                prevSlide();
+                break;
+            case 39: // right arrow
+            case 32: // space
+            case 34: // page down
+                event.preventDefault();
+                nextSlide();
+                break;
+            case 50: // 2
+                if (!modifierKeyDown) {
+                        showNotes();
+                }
+                break;
+            case 51: // 3
+                if (!modifierKeyDown && !overviewActive) {
+                    switch3D();
+                }
+                break;
+            case 190: // .
+            case 48: // 0
+            case 66: // b
+                if (!modifierKeyDown && !overviewActive) {
+                    toggleBlank();
+                }
+                break;
+            case 67: // c
+                if (!modifierKeyDown && !overviewActive) {
+                    toggleContext();
+                }
+                break;
+            case 69: // e
+                if (!modifierKeyDown && !overviewActive) {
+                    expandSlides();
+                }
+                break;
+            case 72: // h
+                showHelp();
+                break;
+            case 78: // n
+                if (!modifierKeyDown && !overviewActive) {
+                    showSlideNumbers();
+                }
+                break;
+            case 80: // p
+                if (!modifierKeyDown && !overviewActive) {
+                    showPresenterView();
+                }
+                break;
+            case 83: // s
+                if (!modifierKeyDown && !overviewActive) {
+                    showSlideSources();
+                }
+                break;
+            case 84: // t
+                showToc();
+                break;
+        }
+    };
+
+    var handleWheel = function(event) {
+        if (tocOpened || helpOpened || overviewActive) {
+            return;
+        }
+
+        var delta = 0;
+
+        if (!event) {
+            event = window.event;
+        }
+
+        if (event.wheelDelta) {
+            delta = event.wheelDelta/120;
+            if (window.opera) delta = -delta;
+        } else if (event.detail) {
+            delta = -event.detail/3;
+        }
+
+        if (delta && delta <0) {
+            nextSlide();
+        } else if (delta) {
+            prevSlide();
+        }
+    };
+
+    var addSlideClickListeners = function() {
+        for (var i=0; i < slides.length; i++) {
+            var slide = slides.item(i);
+            slide.num = i + 1;
+            slide.addEventListener('click', function(e) {
+                if (overviewActive) {
+                    currentSlideNo = this.num;
+                    toggleOverview();
+                    updateSlideClasses(true);
+                    e.preventDefault();
+                }
+                return false;
+            }, true);
+        }
+    };
+
+    var addRemoteWindowControls = function() {
+        window.addEventListener("message", function(e) {
+            if (e.data.indexOf("slide#") != -1) {
+                    currentSlideNo = Number(e.data.replace('slide#', ''));
+                    updateSlideClasses(false);
+            }
+        }, false);
+    };
+
+    var addTouchListeners = function() {
+        document.addEventListener('touchstart', function(e) {
+            touchStartX = e.touches[0].pageX;
+        }, false);
+        document.addEventListener('touchend', function(e) {
+            var pixelsMoved = touchStartX - e.changedTouches[0].pageX;
+            var SWIPE_SIZE = 150;
+            if (pixelsMoved > SWIPE_SIZE) {
+                nextSlide();
+            }
+            else if (pixelsMoved < -SWIPE_SIZE) {
+             prevSlide();
+            }
+        }, false);
+    };
+
+    var addTocLinksListeners = function() {
+        var toc = document.getElementById('toc');
+        if (toc) {
+            var tocLinks = toc.getElementsByTagName('a');
+            for (var i=0; i < tocLinks.length; i++) {
+                tocLinks.item(i).addEventListener('click', function(e) {
+                    currentSlideNo = Number(this.attributes['href'].value.replace('#slide', ''));
+                    updateSlideClasses(true);
+                    e.preventDefault();
+                }, true);
+            }
+        }
+    };
+
+    var addMenuListeners = function() {
+        var buttons = document.querySelectorAll('button');
+        for (var i = 0; i < buttons.length; i++) {
+            buttons.item(i).addEventListener('click', function(e) {
+                var n = e.target.getAttribute('data-command');
+                switch(n) {
+                case 'toc':
+                    showToc(); break;
+                case 'notes':
+                    showNotes(); break;
+                case 'numbers':
+                    showSlideNumbers(); break;
+                case 'overview':
+                    toggleOverview(); break;
+                case 'context':
+                    toggleContext(); break;
+                case 'blank':
+                    toggleBlank(); break;
+                case 'help':
+                    showHelp(); break;
+                default:
+                    return;
+                }
+            }, true);
+        }
+        var action = {
+            'prev': function(e) { prevSlide() },
+            'next': function(e) { nextSlide() }
+        };
+        for (var name in action) {
+            var buttons = document.querySelectorAll('#' + name);
+            for (var i = 0; i < buttons.length; i++)
+                buttons.item(i).addEventListener('click', action[name], true);
+        }
+
+        if (navigator.userAgent.match(/iPhone/i) || navigator.userAgent.match(/iPod/i)) {
+            var navs = document.getElementsByTagName('nav');
+            for (var i = 0; i < navs.length; i++) {
+                navs.item(i).addEventListener('touchstart', function() {
+                    this.className = (this.className == 'hover') ? '' : 'hover';
+                }, false);
+            }
+        }
+    };
+
+    // initialize
+
+    (function() {
+        if (window.location.hash == "") {
+            currentSlideNo = 1;
+        } else if (window.location.hash.indexOf("#presenter") != -1) {
+            currentSlideNo = Number(window.location.hash.replace('#presenter', ''));
+            isPresenterView = true;
+            showingPresenterView = true;
+            presenterViewWin = window;
+            addClass(document.body, 'presenter_view');
+        } else {
+            currentSlideNo = Number(window.location.hash.replace('#slide', ''));
+        }
+
+        // handle small screens and iframes
+        if (window.screen.availWidth < 1280 || top != self) {
+	    // no context
+            hiddenContext = true;
+	    // no background
+	    (document.body || document.getElementsByTagName('body')[0]).style.background = 'none';
+        }
+	// show navigator only on touch screens without iframes
+	if ('ontouchstart' in document.documentElement && top == self) {
+		var list = document.getElementsByClassName('navigator');
+		for (var i = 0, el; el = list[i]; i++)
+			el.style.display = '';
+	}
+
+        document.addEventListener('keyup', checkModifierKeyUp, false);
+        document.addEventListener('keydown', handleBodyKeyDown, false);
+        document.addEventListener('keydown', checkModifierKeyDown, false);
+        document.addEventListener('DOMMouseScroll', handleWheel, false);
+
+        window.onmousewheel = document.onmousewheel = handleWheel;
+        window.onresize = expandSlides;
+
+        for (var i = 0, el; el = slides[i]; i++) {
+            addClass(el, 'slide far-future');
+        }
+        updateSlideClasses(false);
+
+        // add support for finger events (filter it by property detection?)
+        addTouchListeners();
+
+        addMenuListeners();
+
+        addTocLinksListeners();
+
+        addSlideClickListeners();
+
+        addRemoteWindowControls();
+    })();
+}
+
+    </script>
+    
+    
+      
+      <script>
+        
+      </script>
+      
+    
+    <!-- /Javascripts -->
+</head>
+<body>
+  <div id="blank"></div>
+
+  <nav class="navigator" id="left" style="display: none;">
+    <menu id="top">
+      <button title="Previous slide" id="prev" class="prev">«</button>
+      <button title="Next slide" id="next" class="next">»</button>
+    </menu>
+    <menu id="bottom">
+      <button type="checkbox" data-command="toc" title="Table of Contents" class="toc">TOC</button>
+      <button type="checkbox" data-command="numbers" title="Show Slide Numbers">#</button>
+      <button type="checkbox" data-command="overview" title="Overview">↻</button>
+      <button type="checkbox" data-command="notes" title="View Slide Notes">✏</button>
+      <button type="checkbox" data-command="help" title="View Help">?</button>
+    </menu>
+  </nav>
+
+  <div class="presentation">
+    <div id="current_presenter_notes">
+      <div id="presenter_note"></div>
+    </div>
+    <div class="slides">
+      
+      <!-- slide source: /home/aydintd/github/fo/ssh-uygulamalari/index.md -->
+      <div class="slide-wrapper">
+        <div class="slide first">
+          <div class="inner">
+            
+            <header><h1>SSH ve Uygulamalar&#305;</h1></header>
+            
+            
+            <section><p>Nihan &Ccedil;ayda&#351; <code>&lt;nihan.caydas@bil.omu.edu.tr&gt;</code>   <br />
+Sayfalar : 2-18 </p>
+<p>Ayd&#305;n Doyak <code>&lt;aydintd@bil.omu.edu.tr&gt;</code><br />
+Sayfalar : 19-31</p>
+<p><a href="http://aydintd.me/">http://aydintd.me/</a></p>
+<p>&#350;ubat 2014</p></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/aydintd/github/fo/ssh-uygulamalari/index.md">/home/aydintd/github/fo/ssh-uygulamalari/index.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              1/34
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/aydintd/github/fo/ssh-uygulamalari/index.md -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h2>SSH Nedir?</h2></header>
+            
+            
+            <section><ul>
+<li>
+<p>SSH - Secure Shell/G&uuml;venli Kabuk</p>
+</li>
+<li>
+<p>SSH, a&#287; yoluyla di&#287;er bilgisayarlara eri&#351;im sa&#287;lamak, uzak bilgisayarlarda komutlar &ccedil;al&#305;&#351;t&#305;rmak ve bilgisayarlar aras&#305; dosya transferi sa&#287;lamak amac&#305;yla olu&#351;turulmu&#351; bir protokol</p>
+</li>
+<li>
+<p>G&uuml;vensiz kanallar &uuml;zerinden g&uuml;venli ileti&#351;im(internet gibi)</p>
+</li>
+<li>
+<p>Bir ileti&#351;imde SSH, authentication(kimlik denetimi), encryption(&#351;ifreleme), integrity(b&uuml;t&uuml;nl&uuml;k) sa&#287;lar</p>
+</li>
+</ul></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/aydintd/github/fo/ssh-uygulamalari/index.md">/home/aydintd/github/fo/ssh-uygulamalari/index.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              2/34
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/aydintd/github/fo/ssh-uygulamalari/index.md -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h2>SSH&rsquo;in &Ccedil;&ouml;z&uuml;m Getirdi&#287;i Problemler</h2></header>
+            
+            
+            <section><ul>
+<li>
+<p>IP gizleme veya y&ouml;nlendirme y&ouml;ntemiyle yap&#305;lan sald&#305;r&#305;lar</p>
+</li>
+<li>
+<p>Sald&#305;rgan&#305;n, server isimlerinin bulundu&#287;u kay&#305;tlar&#305; kullan&#305;larak ger&ccedil;ekle&#351;tirdi&#287;i sald&#305;r&#305;lar</p>
+</li>
+<li>
+<p>&#304;ki bilgisayar aras&#305;ndaki veri trafi&#287;inin, araya giren ba&#351;ka bir bilgisayar taraf&#305;ndan okunmas&#305;, de&#287;i&#351;tirilmesi yoluyla yap&#305;lan sald&#305;r&#305;lar</p>
+</li>
+<li>
+<p>&#304;leti&#351;imde olan iki bilgisayar aras&#305;ndaki herhangibir sunucuda bulunan k&ouml;t&uuml; niyetli ki&#351;ilerin yapaca&#287;&#305; sald&#305;r&#305;lar</p>
+</li>
+<li>
+<p>X11 sunucusundaki ileti&#351;im dinlenerek ve X do&#287;rulamas&#305; temel al&#305;narak ger&ccedil;ekle&#351;tirilen sald&#305;r&#305;lar</p>
+</li>
+</ul></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/aydintd/github/fo/ssh-uygulamalari/index.md">/home/aydintd/github/fo/ssh-uygulamalari/index.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              3/34
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/aydintd/github/fo/ssh-uygulamalari/index.md -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h2>SSH&rsquo;dan &Ouml;nce Kullan&#305;lan &Ccedil;&ouml;z&uuml;mler</h2></header>
+            
+            
+            <section><ul>
+<li>
+<p>R-komutlar&#305; : &#350;ifreyi a&ccedil;&#305;k &#351;ekilde g&ouml;ndermez ancak; &ldquo;rhosts&rdquo; mekanizmas&#305; g&uuml;venlik sorunlar&#305;na sebep olur</p>
+</li>
+<li>
+<p>Tek Kullan&#305;ml&#305;k &#350;ifreler : Sadece as&#305;llamay&#305; kontrol eder, veri ak&#305;&#351;&#305;n&#305; etmez. Bu y&ouml;ntem cezbedici olsa bile kullan&#305;m k&#305;s&#305;tl&#305;, her yerde kullan&#305;lmaz </p>
+</li>
+<li>
+<p>Telnet : B&uuml;t&uuml;n verileri &#351;ifrelenmemi&#351; halde g&ouml;nderirir (Parolalar da dahil!)</p>
+</li>
+</ul></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/aydintd/github/fo/ssh-uygulamalari/index.md">/home/aydintd/github/fo/ssh-uygulamalari/index.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              4/34
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/aydintd/github/fo/ssh-uygulamalari/index.md -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h2>SSH&rsquo;&#305;n Zay&#305;fl&#305;klar&#305;</h2></header>
+            
+            
+            <section><ul>
+<li>
+<p>Kas&#305;m 2008&rsquo; de SSH&rsquo;&#305;n t&uuml;m s&uuml;r&uuml;mlerinde teorik bir g&uuml;venlik a&ccedil;&#305;&#287;&#305; farkedildi</p>
+<ul>
+<li>A&ccedil;&#305;k &#351;u &#351;ekildeydi: &#350;ifrelenmi&#351; metnin bir blo&#287;undan d&uuml;z metnin, 32 bit &uuml;zerinde bir d&uuml;z metin d&ouml;n&uuml;&#351;&uuml;m&uuml;ne izin veren bir g&uuml;venlik a&ccedil;&#305;&#287;&#305;</li>
+</ul>
+</li>
+<li>
+<p>SSH&rsquo;da, k&ouml;t&uuml; niyetli ki&#351;i sisteme root kullan&#305;c&#305; hesab&#305;yla giri&#351; hakk&#305; elde etti&#287;i anda, SSH protokol&uuml;n&uuml; rahatl&#305;kla ge&ccedil;er</p>
+</li>
+<li>
+<p>Ayr&#305;ca k&ouml;t&uuml; niyetli ki&#351;i, home dizinine girdi&#287;i anda g&uuml;venlik yok olmu&#351; demektir. Bu durum, home dizini NFS(Network File System) ile olu&#351;turulmu&#351; ise s&#305;k&ccedil;a ya&#351;an&#305;r</p>
+</li>
+</ul></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/aydintd/github/fo/ssh-uygulamalari/index.md">/home/aydintd/github/fo/ssh-uygulamalari/index.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              5/34
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/aydintd/github/fo/ssh-uygulamalari/index.md -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h2>SSH&rsquo;&#305;n Geli&#351;imi</h2></header>
+            
+            
+            <section><ul>
+<li>
+<p>Finlandiya Helsinki &Uuml;niversitesinde 1995 y&#305;l&#305;nda ara&#351;t&#305;rmac&#305; olarak g&ouml;rev yapan Tatu Yl&ouml;nen, &#351;u anda SSH-1 olarak bilinen protokol&uuml;n ilk tasar&#305;m&#305;n&#305; yapm&#305;&#351;t&#305;r </p>
+</li>
+<li>
+<p>Temmuz 1995&rsquo;te &uuml;cretsiz olarak piyasaya s&uuml;r&uuml;lm&uuml;&#351;, h&#305;zla yay&#305;lm&#305;&#351;t&#305;r. 1995 sonlar&#305;nda 50 farkl&#305; &uuml;lke, 20000 kullan&#305;c&#305;</p>
+</li>
+<li>
+<p>Aral&#305;k 1995&rsquo;te Yl&ouml;nen, SSH Communications Security&rsquo;yi pazarlad&#305; ve SSH&rsquo;&#305; geli&#351;tirdi</p>
+</li>
+<li>
+<p>SSH yaz&#305;l&#305;m&#305;n&#305;n orjinal s&uuml;r&uuml;m&uuml;, &ouml;zg&uuml;r yaz&#305;l&#305;mlar&#305;n &ccedil;e&#351;itli par&ccedil;alar&#305;nda kullan&#305;ld&#305;(GNU libgmp gibi). Yl&ouml;nen, sonraki s&uuml;r&uuml;mlerde SSH Secure Communications&rsquo;&#305; gittik&ccedil;e artan patentli bir yaz&#305;l&#305;m olarak geli&#351;tirdi</p>
+</li>
+</ul></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/aydintd/github/fo/ssh-uygulamalari/index.md">/home/aydintd/github/fo/ssh-uygulamalari/index.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              6/34
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/aydintd/github/fo/ssh-uygulamalari/index.md -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h2>SSH &Ouml;zg&uuml;r Yaz&#305;l&#305;m Olarak Geli&#351;imi</h2></header>
+            
+            
+            <section><ul>
+<li>
+<p>1999&rsquo;a gelinildi&#287;inde geli&#351;tiriciler, orijinal SSH&rsquo;&#305;n &ouml;zg&uuml;r yaz&#305;l&#305;m olan halini tercih ettiler ve SSH 1.2.12 s&uuml;r&uuml;m&uuml;ne geri d&ouml;nd&uuml;ler
+SSH 1.2.12 &mdash;&gt; &Ouml;zg&uuml;r yaz&#305;l&#305;m olarak ortaya &ccedil;&#305;km&#305;&#351;t&#305;r</p>
+</li>
+<li>
+<p>Bj&ouml;rn Gr&ouml;nvall, SHH 1.2.12 kod taban&#305;yla OSSH&rsquo;&#305; geli&#351;tirdi</p>
+</li>
+<li>
+<p>OpenBSD geli&#351;tiricileri, Gr&ouml;nvall&rsquo;&#305;n kodunun &uuml;zerinde &ccedil;al&#305;&#351;arak OpenSSH&rsquo;&#305; olu&#351;turdu ve OpenSD 2.6 s&uuml;r&uuml;m&uuml;yle birlikte &ccedil;&#305;kar&#305;ld&#305;</p>
+</li>
+<li>
+<p>2006 y&#305;l&#305;nda protokol&uuml;n g&ouml;zden ge&ccedil;irilmi&#351; bir s&uuml;r&uuml;m&uuml; olan SSH-2 standart olarak kabul edildi</p>
+</li>
+<li>
+<p>SSH-2 ile Diffie-Helman anahtar de&#287;i&#351;imi ve mesaj &uuml;zerinden yetkilendirme kodlar&#305; ile g&uuml;&ccedil;l&uuml; bir b&uuml;t&uuml;nl&uuml;k kontrol&uuml; sa&#287;land&#305;</p>
+</li>
+<li>
+<p>G&uuml;n&uuml;m&uuml;zde yayg&#305;n olarak SSH-2 kullan&#305;lmaktad&#305;r</p>
+</li>
+</ul></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/aydintd/github/fo/ssh-uygulamalari/index.md">/home/aydintd/github/fo/ssh-uygulamalari/index.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              7/34
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/aydintd/github/fo/ssh-uygulamalari/index.md -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h2>SSH &#304;stemcisi Nas&#305;l Kurulur?</h2></header>
+            
+            
+            <section><ul>
+<li>
+<p>U&ccedil;birim a&ccedil;&#305;l&#305;r ve a&#351;a&#287;&#305;daki komutlar yaz&#305;l&#305;r :</p>
+<pre><code>$ sudo apt-get install openssh-client
+</code></pre>
+</li>
+</ul></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/aydintd/github/fo/ssh-uygulamalari/index.md">/home/aydintd/github/fo/ssh-uygulamalari/index.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              8/34
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/aydintd/github/fo/ssh-uygulamalari/index.md -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h2>SSH Anahtar &Uuml;retimi</h2></header>
+            
+            
+            <section><ul>
+<li>
+<p>SSH sistemlerde RSA ve DSA olarak iki farkl&#305; anahtar &uuml;retim se&ccedil;ene&#287;i mevcuttur</p>
+</li>
+<li>
+<p>Aralar&#305;ndaki fark, anahtar &uuml;retim algoritmalar&#305;ndaki farkl&#305;l&#305;klar</p>
+</li>
+<li>
+<p>RSA algoritmas&#305; ile &ouml;rnek anahtar &uuml;retimi</p>
+<pre><code>$ ssh-keygen -t rsa -C "nihan.caydas@bil.omu.edu.tr"
+</code></pre>
+</li>
+<li>
+<p>Mail - Kimlik. Olu&#351;turulan a&ccedil;&#305;k anahtar&#305;n sonunda g&ouml;sterilir</p>
+</li>
+</ul></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/aydintd/github/fo/ssh-uygulamalari/index.md">/home/aydintd/github/fo/ssh-uygulamalari/index.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              9/34
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/aydintd/github/fo/ssh-uygulamalari/index.md -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h2>Olu&#351;turulan Anahtarlara Bak&#305;&#351;</h2></header>
+            
+            
+            <section><ul>
+<li>
+<p>Anahtar olu&#351;turulduktan sonra, sistemde beklenen iki farkl&#305; dosya</p>
+<pre><code>id_rsa
+id_rsa.pub
+</code></pre>
+</li>
+<li>
+<p>id_rsa: Olu&#351;turulan gizli(&ouml;zel) anahtar</p>
+</li>
+<li>
+<p>id_rsa.pub: Olu&#351;turulan a&ccedil;&#305;k(genel) anahtar</p>
+</li>
+</ul></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/aydintd/github/fo/ssh-uygulamalari/index.md">/home/aydintd/github/fo/ssh-uygulamalari/index.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              10/34
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/aydintd/github/fo/ssh-uygulamalari/index.md -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h2>Parolas&#305;z Giri&#351; Ve Gnome Keyring</h2></header>
+            
+            
+            <section><ul>
+<li>
+<p>&Ouml;nce id kopyalan&#305;r ve giri&#351; sorgusu atlan&#305;r</p>
+<pre><code>$ ssh-copy-id user@server
+</code></pre>
+</li>
+<li>
+<p>Id kopyalama s&#305;ras&#305;nda g&uuml;venlik ama&ccedil;l&#305;, bir kez &#351;ifre sorgusu yap&#305;l&#305;r ve ard&#305;ndan sorgusuz giri&#351;ler ba&#351;lar</p>
+</li>
+<li>
+<p>Gnome Keyring: &#350;ifre tutan bir program. Sunucuya istek s&#305;ras&#305;nda devreye girer, &#351;ifreleri g&ouml;nderir</p>
+</li>
+<li>
+<p>Tutulmakta olan &#351;ifreleri g&ouml;ster :</p>
+<pre><code>$ seahorse
+</code></pre>
+</li>
+</ul></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/aydintd/github/fo/ssh-uygulamalari/index.md">/home/aydintd/github/fo/ssh-uygulamalari/index.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              11/34
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/aydintd/github/fo/ssh-uygulamalari/index.md -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h2>Kar&#351;&#305; Sunucuda Komut &Ccedil;al&#305;&#351;t&#305;rma</h2></header>
+            
+            
+            <section><ul>
+<li>
+<p>&Ouml;nemli Nokta: Komutlar tek t&#305;rnak i&ccedil;erisinde -&gt; &lsquo;command&rsquo;</p>
+</li>
+<li>
+<p>Kar&#351;&#305; sunucuya komut g&ouml;nder</p>
+<pre><code>$ ssh -t user@server 'command'
+</code></pre>
+</li>
+<li>
+<p>&Ouml;nemli: Root sorgularda, root &#351;ifresi sorulur</p>
+</li>
+</ul></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/aydintd/github/fo/ssh-uygulamalari/index.md">/home/aydintd/github/fo/ssh-uygulamalari/index.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              12/34
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/aydintd/github/fo/ssh-uygulamalari/index.md -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h2>Kabuk Oturumunun Ayarlanmas&#305;</h2></header>
+            
+            
+            <section><ul>
+<li>TODO </li>
+</ul></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/aydintd/github/fo/ssh-uygulamalari/index.md">/home/aydintd/github/fo/ssh-uygulamalari/index.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              13/34
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/aydintd/github/fo/ssh-uygulamalari/index.md -->
+      <div class="slide-wrapper">
+        <div class="slide has_code">
+          <div class="inner">
+            
+            <header><h2>Farkl&#305; Kullan&#305;c&#305; Giri&#351;leri</h2></header>
+            
+            
+            <section><ul>
+<li>
+<p>Uzaktaki bir makineye farkl&#305; kullan&#305;c&#305;larla ba&#287;lanmak i&ccedil;in,</p>
+<div class="highlight"><pre><span class="nv">$ </span>ssh user@remote-server     <span class="c"># user kısmına bağlanmak istediğiniz kullanıcıyı girin</span>
+</pre></div>
+
+</li>
+<li>
+<p>Uzak-sunucuya bir kullan&#305;c&#305;yla ba&#287;lanman&#305;z i&ccedil;in, o sunucuda, kullan&#305;c&#305;n&#305;n hali haz&#305;rda kullan&#305;c&#305; hesab&#305;n&#305;n olmas&#305; gerekir. Aksi taktirde makineye ba&#287;lanamazs&#305;n&#305;z</p>
+</li>
+<li>
+<p>Bir kullan&#305;c&#305;, birden &ccedil;ok uzak makineye ayn&#305; makineden ba&#287;lan&#305;yorsa bunu kendi kullan&#305;c&#305;s&#305; i&ccedil;in istemci ayarlar&#305;n&#305; &ouml;zelle&#351;tirebilir :</p>
+<div class="highlight"><pre><span class="nv">$ </span>sudo cp /etc/ssh/ssh_config /home/user/.ssh/config
+<span class="nv">$ </span>vim /home/user/.ssh/config
+</pre></div>
+</section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/aydintd/github/fo/ssh-uygulamalari/index.md">/home/aydintd/github/fo/ssh-uygulamalari/index.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              14/34
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/aydintd/github/fo/ssh-uygulamalari/index.md -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h2>Tek Bir Ayar Dosyas&#305;</h2></header>
+            
+            
+            <section><ul>
+<li>
+<p>&Ouml;rnek bir <code>config</code> dosyas&#305; i&ccedil;eri&#287;i :</p>
+<pre><code>// default for all //
+Host *
+ForwardAgent no
+ForwardX11 no
+ForwardX11Trusted yes
+User nixcraft
+Port 22
+Protocol 2
+ServerAliveInterval 60
+ServerAliveCountMax 30
+
+//override as per host //
+Host server1
+HostName host_ad&#305;
+User nixcraft
+Port 4242
+IdentityFile /nfs/shared/users/nixcraft/keys/server1/id_rsa
+</code></pre>
+</li>
+</ul></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/aydintd/github/fo/ssh-uygulamalari/index.md">/home/aydintd/github/fo/ssh-uygulamalari/index.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              15/34
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/aydintd/github/fo/ssh-uygulamalari/index.md -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h2>Port Giri&#351;leri</h2></header>
+            
+            
+            <section><ul>
+<li>
+<p>&Ouml;ntan&#305;ml&#305; port -&gt; 22.port Farkl&#305; porta eri&#351;im</p>
+<pre><code>$ssh user@server -p portnumaras&#305;
+</code></pre>
+</li>
+<li>
+<p>Kullan&#305;c&#305;ya &ouml;zel port tan&#305;m&#305;, bir &ouml;nceki slayttaki port numaras&#305;n&#305; iste&#287;e g&ouml;re g&uuml;ncelle</p>
+</li>
+</ul></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/aydintd/github/fo/ssh-uygulamalari/index.md">/home/aydintd/github/fo/ssh-uygulamalari/index.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              16/34
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/aydintd/github/fo/ssh-uygulamalari/index.md -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h2>&#304;stemci Yap&#305;land&#305;rmas&#305;</h2></header>
+            
+            
+            <section><ul>
+<li>
+<p><code>/home/user/.ssh/config</code> ayar tablosu listeler</p>
+</li>
+<li>
+<p>U&ccedil;birimde</p>
+<pre><code>$ cat /etc/ssh/ssh_config
+</code></pre>
+</li>
+<li>
+<p>Ayarlar&#305; de&#287;i&#351;tirmek i&ccedil;in root izinlerine sahip olmal&#305;</p>
+</li>
+<li>
+<p>&#304;stenilen ayar se&ccedil;imi</p>
+</li>
+</ul></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/aydintd/github/fo/ssh-uygulamalari/index.md">/home/aydintd/github/fo/ssh-uygulamalari/index.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              17/34
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/aydintd/github/fo/ssh-uygulamalari/index.md -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h2>Temel Yap&#305;land&#305;rma Ayarlar&#305;</h2></header>
+            
+            
+            <section><ul>
+<li>
+<p>RSAAuthentication: Rsa key sorgulamas&#305; yap&#305;l&#305;p yap&#305;lmayaca&#287;&#305;</p>
+</li>
+<li>
+<p>PasswordAuthentication: Sunucu parolas&#305; sorulup sorulmamas&#305;</p>
+</li>
+<li>
+<p>HostbasedAuthentication: SSH&rsquo;&#305; belirli gruplara veya ki&#351;ilere s&#305;n&#305;rland&#305;rma</p>
+</li>
+<li>
+<p>ConnectTimeOut: Sunucuda bir &#351;ey yap&#305;lmad&#305;&#287;&#305; takdirde ba&#287;l&#305; kal&#305;nacak s&uuml;re</p>
+</li>
+<li>
+<p>Port: &Ouml;ntan&#305;ml&#305; gelen 22.portu de&#287;i&#351;tirme ayar&#305;</p>
+</li>
+</ul></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/aydintd/github/fo/ssh-uygulamalari/index.md">/home/aydintd/github/fo/ssh-uygulamalari/index.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              18/34
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/aydintd/github/fo/ssh-uygulamalari/index.md -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h2>SSH Sunucusu Ne &#304;&#351; Yapar?</h2></header>
+            
+            
+            <section><ul>
+<li>
+<p>SSH sunucusu, sunucu makinelere ssh protokol&uuml; &uuml;zerinden 
+uzaktan eri&#351;im &ouml;zelli&#287;i kazand&#305;rmak amac&#305;yla kurulur</p>
+</li>
+<li>
+<p>Bu sayede SSH ile g&uuml;vensiz bir a&#287;da, g&uuml;venli bir &#351;ekilde ilgili 
+makineye uzaktan eri&#351;im sa&#287;lan&#305;yor</p>
+</li>
+<li>
+<p>SSH protokol&uuml;, telnet rlogin vb. gibi protokollerden farkl&#305; olup t&uuml;m ileti&#351;im <br />
+g&uuml;&ccedil;l&uuml; kriptografik y&ouml;ntemlerle &#351;ifrelenir</p>
+</li>
+<li>
+<p>Bu nedenle kullan&#305;c&#305;lar taraf&#305;ndan en &ccedil;ok tercih edilen uzaktan 
+eri&#351;im protokollerinden biri</p>
+</li>
+</ul></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/aydintd/github/fo/ssh-uygulamalari/index.md">/home/aydintd/github/fo/ssh-uygulamalari/index.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              19/34
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/aydintd/github/fo/ssh-uygulamalari/index.md -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h2>&#304;stemci/Sunucu Fark&#305;</h2></header>
+            
+            
+            <section><ul>
+<li>
+<p>Bana g&ouml;re bir servisin &ccedil;al&#305;&#351;ma prensibini anlamak, o servisin istemcisinin ve     <br />
+sunucusunun ayr&#305; ayr&#305; hangi problemlere &ccedil;&ouml;z&uuml;m getirdi&#287;ini ara&#351;t&#305;rmakla ba&#351;lamal&#305;</p>
+</li>
+<li>
+<p>Sistem y&ouml;neticisi olarak benim &ccedil;ok &ouml;zenli davranmaya &ccedil;al&#305;&#351;t&#305;&#287;&#305;m noktalardan birisi bu   </p>
+</li>
+<li>
+<p>Kar&#351;&#305;la&#351;&#305;lacak muhtemel problemi s&#305;n&#305;fland&#305;rmay&#305;, kategorize etmeyi &ccedil;ok kolayla&#351;t&#305;r&#305;r <br />
+B&ouml;ylece &ccedil;&ouml;z&uuml;m i&ccedil;in bakaca&#287;&#305;n&#305;z yeri &ouml;nceden tahmin edebilirsiniz </p>
+</li>
+<li>
+<p>SSH &#304;stemcisinin &ccedil;&ouml;zd&uuml;&#287;&uuml; problemler &ouml;zetle; g&uuml;venli ileti&#351;im iste&#287;ini sunucuya g&ouml;nderme,  <br />
+kimliklendirme (gizli ve a&ccedil;&#305;k anahtarlar ile)        </p>
+</li>
+<li>
+<p>SSH Sunucusu ise, kuruldu&#287;u makineye ssh protokol&uuml; ile &#351;ifreli bir t&uuml;nel &uuml;zerinden<br />
+uzaktan eri&#351;ilebilme &ouml;zelli&#287;i kazand&#305;r&#305;r</p>
+</li>
+</ul></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/aydintd/github/fo/ssh-uygulamalari/index.md">/home/aydintd/github/fo/ssh-uygulamalari/index.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              20/34
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/aydintd/github/fo/ssh-uygulamalari/index.md -->
+      <div class="slide-wrapper">
+        <div class="slide has_code">
+          <div class="inner">
+            
+            <header><h2>SSH Sunucu Kurulumu</h2></header>
+            
+            
+            <section><ul>
+<li>
+<p>Ubuntu/Debian t&uuml;revi sistemlerde SSH sunucusunu a&#351;a&#287;&#305;daki &#351;ekilde kurulur </p>
+<div class="highlight"><pre><span class="nv">$ </span>sudo apt-get install openssh-server
+</pre></div>
+
+</li>
+<li>
+<p>Kurulum s&#305;ras&#305;nda farkettiyseniz, sunucuyla beraber <code>openssh-client</code> paketi de sisteminize kuruluyor</p>
+</li>
+<li>
+<p>A&#351;a&#287;&#305;daki komut &ccedil;&#305;kt&#305;s&#305;, kurdu&#287;unuz SSH sunucusunun ismini ve s&uuml;r&uuml;m&uuml;n&uuml; size s&ouml;yleyecek  </p>
+<div class="highlight"><pre><span class="nv">$ </span>ssh -V
+</pre></div>
+
+</li>
+</ul></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/aydintd/github/fo/ssh-uygulamalari/index.md">/home/aydintd/github/fo/ssh-uygulamalari/index.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              21/34
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/aydintd/github/fo/ssh-uygulamalari/index.md -->
+      <div class="slide-wrapper">
+        <div class="slide has_code">
+          <div class="inner">
+            
+            <header><h2>SSH Sunucusunun Ayarlanmas&#305;</h2></header>
+            
+            
+            <section><ul>
+<li>
+<p>Her&#351;eyden &ouml;nce, uzaktan eri&#351;ilecek sunucuya ger&ccedil;ekten ssh portu &uuml;zerinden ula&#351;abilmek gerekiyor </p>
+</li>
+<li>
+<p>Makineniz muhtemel bir firewall arkas&#305;nda &ccedil;al&#305;&#351;&#305;yorsa a&#351;a&#287;&#305;daki gibi bir kural&#305; g&uuml;venlik duvar&#305;nda girmeniz gerek   </p>
+<div class="highlight"><pre><span class="nv">$ </span>sudo iptables -A INPUT -i eth0 -p tcp --dport 22 -j ACCEPT
+</pre></div>
+
+</li>
+<li>
+<p><strong>dport</strong> k&#305;sm&#305;na dikkat! Ssh protokol&uuml; &ouml;ntan&#305;ml&#305; olarak 22 portunu kullan&#305;yor 
+&Ouml;n tan&#305;ml&#305; portlar i&ccedil;in bkz :</p>
+<div class="highlight"><pre><span class="nv">$ </span>cat /etc/services
+</pre></div>
+
+</li>
+<li>
+<p>Ancak &#351;art de&#287;il, hatta tehlikeli</p>
+</li>
+</ul></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/aydintd/github/fo/ssh-uygulamalari/index.md">/home/aydintd/github/fo/ssh-uygulamalari/index.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              22/34
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/aydintd/github/fo/ssh-uygulamalari/index.md -->
+      <div class="slide-wrapper">
+        <div class="slide has_code">
+          <div class="inner">
+            
+            <header><h2>SSH Sunucusunun Kontrol&uuml;</h2></header>
+            
+            
+            <section><ul>
+<li>
+<p>SSH Sunucusunun sistemde &ccedil;al&#305;&#351;&#305;r halde olup olmad&#305;&#287;&#305;n&#305; a&#351;a&#287;&#305;daki &#351;ekilde kontrol edebiliriz :</p>
+<div class="highlight"><pre><span class="nv">$ </span>ps ax | grep ssh
+2345 ?      Ss 0:00 /usr/sbin/sshd
+</pre></div>
+
+</li>
+<li>
+<p>Sistemde sunucu <strong>sshd</strong> yani ssh daemon servisi olarak g&ouml;r&uuml;nt&uuml;leniyor</p>
+</li>
+<li>
+<p>SSH sunucunuzun gelen ba&#287;lant&#305;lar&#305; dinleyip dinleyemedi&#287;ini a&#351;a&#287;&#305;daki &#351;ekilde kontrol edebiliriz :</p>
+<div class="highlight"><pre><span class="nv">$ </span>sudo netstat -ap | grep ssh
+tcp        0      0 *:ssh                         *:*                     LISTEN      2345/sshd       
+tcp6       0      0 <span class="o">[</span>::<span class="o">]</span>:ssh                      <span class="o">[</span>::<span class="o">]</span>:*                  LISTEN      2345/sshd
+</pre></div>
+
+</li>
+<li>
+<p>Ya da direkt olarak yerelde port taramas&#305; yapabilirsiniz :</p>
+<div class="highlight"><pre><span class="nv">$ </span>nc -v -z 127.0.0.1 22
+localhost <span class="o">[</span>127.0.0.1<span class="o">]</span> 22 <span class="o">(</span>ssh<span class="o">)</span> open
+</pre></div>
+
+</li>
+</ul></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/aydintd/github/fo/ssh-uygulamalari/index.md">/home/aydintd/github/fo/ssh-uygulamalari/index.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              23/34
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/aydintd/github/fo/ssh-uygulamalari/index.md -->
+      <div class="slide-wrapper">
+        <div class="slide has_code">
+          <div class="inner">
+            
+            <header><h2>Sunucunun Temel Yap&#305;land&#305;rma Ayarlar&#305;</h2></header>
+            
+            
+            <section><ul>
+<li>
+<p>Ubuntu/Debian sistemlerde SSH Sunucusunun ayar dosyas&#305; <code>/etc/ssh/sshd_config</code> dosyas&#305; alt&#305;nda tutulur</p>
+</li>
+<li>
+<p>Temel ayarlamalar&#305; bu dosyay&#305; d&uuml;zenleyerek yapmak gerekiyor </p>
+</li>
+<li>
+<p>Sadece SSH i&ccedil;in de&#287;il, hangi servis olursa olsun, e&#287;er ilk ayarlar&#305; bir &#351;ekilde modifiye edecekseniz servisin ayar dosyas&#305;n&#305;n bir yede&#287;ini alman&#305;z &ouml;nerilir</p>
+<div class="highlight"><pre><span class="nv">$ </span>sudo cp /etc/ssh/sshd_config /etc/ssh/sshd_config.orig
+<span class="nv">$ </span>sudo chmod a-w /etc/ssh/sshd_config.orig
+</pre></div>
+
+</li>
+<li>
+<p>Linux sistemlerde servis ayarlar&#305;n&#305;n tutuldu&#287;u dosyalar, ayar dosyas&#305; olmakla beraber iyi birer kullan&#305;m k&#305;lavuzu &ouml;zelli&#287;i de bar&#305;nd&#305;r&#305;rlar</p>
+</li>
+<li>
+<p>Bu y&uuml;zden fabrika ayarlar&#305;yla gelen dosyay&#305; sadece okunur &#351;ekilde izinlerini ayarl&#305;yorum, ancak 
+&#351;art de&#287;il</p>
+</li>
+</ul></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/aydintd/github/fo/ssh-uygulamalari/index.md">/home/aydintd/github/fo/ssh-uygulamalari/index.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              24/34
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/aydintd/github/fo/ssh-uygulamalari/index.md -->
+      <div class="slide-wrapper">
+        <div class="slide has_code">
+          <div class="inner">
+            
+            <header><h2>Temel Yap&#305;land&#305;rma Ayarlar&#305; - Port</h2></header>
+            
+            
+            <section><ul>
+<li>
+<p>Ayar dosyas&#305;n&#305; bir metin edit&ouml;r&uuml;yle a&ccedil;&#305;p, i&ccedil;eri&#287;ine g&ouml;z atal&#305;m</p>
+<div class="highlight"><pre><span class="nv">$ </span>sudo vim /etc/ssh/sshd_config
+</pre></div>
+
+</li>
+<li>
+<p>Bizi ilk ba&#351;ta, SSH Port ayar&#305; kar&#351;&#305;l&#305;yor. Bu port &ouml;ntan&#305;ml&#305; olarak 22 &#351;eklinde ayarland&#305;&#287;&#305;n&#305; g&ouml;r&uuml;yoruz</p>
+</li>
+<li>
+<p>22 portu, &ccedil;al&#305;&#351;an makineniz hakk&#305;nda yabanc&#305; bir sald&#305;rgan&#305;n, makineniz &uuml;zerinde s&#305;zma giri&#351;iminde bulunaca&#287;&#305; ilk kap&#305;lardan biri</p>
+</li>
+<li>
+<p>Bir &ccedil;ok y&ouml;ntemle bu port sald&#305;rganlar taraf&#305;ndan deneniyor, makinenizin g&uuml;venli&#287;ini bir &ouml;l&ccedil;&uuml;de art&#305;rmak i&ccedil;in ssh portunu de&#287;i&#351;tirebiliriz</p>
+</li>
+<li>
+<p>&Ccedil;o&#287;u kar&#351;&#305;la&#351;t&#305;&#287;&#305;m yerde 2222, 1234 gibi bir &ccedil;ok farkl&#305; ssh portlar&#305; kullan&#305;lmakta, dikkat etmeniz gereken tek &#351;ey tayin etti&#287;iniz porta eri&#351;imi
+(e&#287;er kullan&#305;yorsan&#305;z) g&uuml;venlik duvar&#305;nda izin vermek</p>
+</li>
+</ul></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/aydintd/github/fo/ssh-uygulamalari/index.md">/home/aydintd/github/fo/ssh-uygulamalari/index.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              25/34
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/aydintd/github/fo/ssh-uygulamalari/index.md -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h2>Temel Yap&#305;land&#305;rma Ayarlar&#305; - Anahtarlar</h2></header>
+            
+            
+            <section><ul>
+<li>
+<p>SSH Sunucunuzun a&ccedil;&#305;k ve gizli anahtarlar&#305;n&#305;n dosya yolu bilgisi ve ilgili ayarlar k&#305;sm&#305;</p>
+</li>
+<li>
+<p>SSH sunucunuzu kurdu&#287;unuzda, <code>/etc/ssh</code> dizini alt&#305;nda sunucunun a&ccedil;&#305;k ve gizli anahtarlar&#305; &uuml;retilir</p>
+</li>
+<li>
+<p>Bu dosyalar&#305;n izinlerinin a&ccedil;&#305;k anahtarlar i&ccedil;in <strong>611</strong>, gizli anahtarlar i&ccedil;in kesinlikle <strong>600</strong> olarak ayarland&#305;&#287;&#305;ndan emin olun</p>
+</li>
+</ul></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/aydintd/github/fo/ssh-uygulamalari/index.md">/home/aydintd/github/fo/ssh-uygulamalari/index.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              26/34
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/aydintd/github/fo/ssh-uygulamalari/index.md -->
+      <div class="slide-wrapper">
+        <div class="slide has_code">
+          <div class="inner">
+            
+            <header><h2>Temel Yap&#305;land&#305;rma Ayarlar&#305; - Loglama</h2></header>
+            
+            
+            <section><ul>
+<li>
+<p>SSH loglar&#305;n&#305;n nerede tutuldu&#287;unu &#351;u &#351;ekilde &ouml;&#287;renebiliriz :</p>
+<div class="highlight"><pre><span class="nv">$ </span>sudo grep -lri sshd /var/log
+/var/log/auth.log
+/var/log/apt/term.log
+</pre></div>
+
+</li>
+<li>
+<p>auth.log i&ccedil;eri&#287;ine bakacak olursak, sunucu &uuml;zerindeki ssh aktivitelerini g&ouml;zlemleyebiliriz</p>
+<div class="highlight"><pre><span class="nv">$ </span>sudo tail -300 /var/log/auth.log
+</pre></div>
+
+</li>
+<li>
+<p><em>sshd_config</em>&lsquo;de Loglama ile alakal&#305; ayarlar bulunuyor. Bu ayarlar sistemin log sunucusunun kullan&#305;lmas&#305; ve loglama seviyesi</p>
+</li>
+<li>
+<p>Sunucunuzda detayl&#305; loglama yapmak istiyorsan&#305;z a&#351;a&#287;&#305;daki <strong>INFO</strong> girdisini <strong>VERBOSE</strong> olarak de&#287;i&#351;tirin :</p>
+<div class="highlight"><pre><span class="c"># Logging</span>
+SyslogFacility AUTH
+LogLevel INFO           <span class="c"># VERBOSE</span>
+</pre></div>
+</section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/aydintd/github/fo/ssh-uygulamalari/index.md">/home/aydintd/github/fo/ssh-uygulamalari/index.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              27/34
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/aydintd/github/fo/ssh-uygulamalari/index.md -->
+      <div class="slide-wrapper">
+        <div class="slide has_code">
+          <div class="inner">
+            
+            <header><h2>Temel Yap&#305;land&#305;rma Ayarlar&#305; - G&uuml;venlik</h2></header>
+            
+            
+            <section><ul>
+<li>
+<p>Sunuculara uzaktan eri&#351;irken, SSH ile sunucunuzun g&uuml;venli&#287;ini &ouml;nemli &ouml;l&ccedil;&uuml;de art&#305;rabiliyoruz</p>
+</li>
+<li>
+<p>Sunuculara <strong>root</strong> kullan&#305;c&#305;s&#305;yla ula&#351;&#305;m&#305; engellemek, sald&#305;rgan&#305;n <strong>root</strong> kullan&#305;c&#305;s&#305;n&#305; kullanarak sisteminize s&#305;zmaya &ccedil;al&#305;&#351;mas&#305;n&#305; engeller :</p>
+<div class="highlight"><pre> PermitRootLogin yes       <span class="c"># no</span>
+</pre></div>
+
+</li>
+<li>
+<p>Parola kullanarak sunucuya eri&#351;im &ouml;zelli&#287;ini kald&#305;rmak da, sald&#305;rganlar&#305;n ssh sunucunuza rastgele parola deneyerek s&#305;zma ihtimalini ortadan kald&#305;r&#305;r :</p>
+<div class="highlight"><pre>PasswordAuthentication yes     <span class="c"># no</span>
+</pre></div>
+
+</li>
+<li>
+<p>Peki parola kullan&#305;lmayacaksa sunucuya nas&#305;l eri&#351;ilecek?</p>
+</li>
+</ul></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/aydintd/github/fo/ssh-uygulamalari/index.md">/home/aydintd/github/fo/ssh-uygulamalari/index.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              28/34
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/aydintd/github/fo/ssh-uygulamalari/index.md -->
+      <div class="slide-wrapper">
+        <div class="slide has_code">
+          <div class="inner">
+            
+            <header><h2>Ortak Anahtarlarla Sunucuya Eri&#351;im</h2></header>
+            
+            
+            <section><ul>
+<li>
+<p>Eri&#351;im i&ccedil;in do&#287;rudan bir parola olmadan, kullan&#305;c&#305;n&#305;n ve sunucunun ortak anahtarlar&#305;n&#305;n aralar&#305;nda payla&#351;&#305;lmas&#305; ve g&uuml;venli ba&#287;lant&#305;n&#305;n olu&#351;turularak kimlik kontrol&uuml;n&uuml;n yap&#305;lmas&#305; &#351;eklinde olur</p>
+</li>
+<li>
+<p>Bu sunucunun g&uuml;venli&#287;ini yads&#305;namaz &#351;ekilde art&#305;rarak, &ccedil;ok bitlik &ccedil;&ouml;z&uuml;lmesi imkans&#305;z bir anahtar yard&#305;m&#305;yla sunucuya eri&#351;im sa&#287;lan&#305;r</p>
+</li>
+<li>
+<p>Ssh istemcisi a&#351;a&#287;&#305;daki &#351;ekilde sunucuya a&ccedil;&#305;k anahtar&#305;n&#305; g&ouml;nderir :</p>
+<div class="highlight"><pre><span class="nv">$ </span>ssh-copy-id user@remote-server
+
+/usr/bin/ssh-copy-id: INFO: attempting to log in with the new key<span class="o">(</span>s<span class="o">)</span>, to filter out any that are already installed
+/usr/bin/ssh-copy-id: INFO: 1 key<span class="o">(</span>s<span class="o">)</span> remain to be installed -- <span class="k">if </span>you are prompted now it is to install the new keys
+user@remote-server<span class="s1">&#39;s password:</span>
+
+<span class="s1">Number of key(s) added: 1</span>
+
+<span class="s1">Now try logging into the machine, with:   &quot;ssh &#39;</span>user@remote-server<span class="err">&#39;&quot;</span>
+and check to make sure that only the key<span class="o">(</span>s<span class="o">)</span> you wanted were added.
+</pre></div>
+
+</li>
+</ul></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/aydintd/github/fo/ssh-uygulamalari/index.md">/home/aydintd/github/fo/ssh-uygulamalari/index.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              29/34
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/aydintd/github/fo/ssh-uygulamalari/index.md -->
+      <div class="slide-wrapper">
+        <div class="slide has_code">
+          <div class="inner">
+            
+            <header><h2>Ortak Anahtarlarla Sunucuya Eri&#351;im</h2></header>
+            
+            
+            <section><ul>
+<li>
+<p>&#304;stemci e&#287;er sunucuda kay&#305;tl&#305; bir kullan&#305;c&#305; hesab&#305;na sahipse anahtar&#305;n&#305; sunucuya g&ouml;nderebilir.</p>
+</li>
+<li>
+<p>&#304;stemciden g&ouml;nderilen anahtar, uzak sunucudaki istemcinin kullan&#305;c&#305;s&#305;n&#305;n ev dizinine kopyalan&#305;r</p>
+<div class="highlight"><pre><span class="nv">$ </span>cat /home/user/.ssh/authorized_keys      <span class="c"># @uzak-sunucu</span>
+</pre></div>
+
+</li>
+<li>
+<p>&#350;eklinde anahtara bak&#305;ld&#305;&#287;&#305;nda, istemcinin a&ccedil;&#305;k anahtar&#305;yla ayn&#305; oldu&#287;u g&ouml;r&uuml;l&uuml;r. B&ouml;ylece parolas&#305;z, ortak anahtarlar yard&#305;m&#305;yla
+sunucuya eri&#351;im sa&#287;lan&#305;r</p>
+</li>
+</ul></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/aydintd/github/fo/ssh-uygulamalari/index.md">/home/aydintd/github/fo/ssh-uygulamalari/index.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              30/34
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/aydintd/github/fo/ssh-uygulamalari/index.md -->
+      <div class="slide-wrapper">
+        <div class="slide has_code">
+          <div class="inner">
+            
+            <header><h2>SSH Kullan&#305;c&#305; &#304;zinleri ve Banner Ayarlar&#305;</h2></header>
+            
+            
+            <section><ul>
+<li>
+<p><code>sshd_config</code> dosyas&#305;nda yap&#305;labilecek son ayarlar sunucuya kimin eri&#351;ip kimin eri&#351;meyece&#287;i bilgisini SSH&rsquo;a ge&ccedil;irmek olabilir</p>
+</li>
+<li>
+<p>A&#351;a&#287;&#305;daki sat&#305;rlar&#305; <code>sshd_config</code> dosyas&#305;n&#305;n sonuna ekleyin :</p>
+<pre><code>AllowUser can, ecylmz                 # &#304;zin ver
+DenyUser 1CrazyGirL9, bilal           # &#304;zin verme
+</code></pre>
+</li>
+<li>
+<p>Ve son olarak, SSH&rsquo;la ba&#287;lanmaya &ccedil;al&#305;&#351;an kullan&#305;c&#305;lara bir mesaj g&ouml;r&uuml;nt&uuml;letebilirsiniz :</p>
+<div class="highlight"><pre><span class="c">#Banner /etc/issue.net      # Yorum satırını kaldırıp, /etc/issue.net dosya içeriğini görüntülenecek mesajla değiştir</span>
+</pre></div>
+
+</li>
+<li>
+<p>T&uuml;m bu ayarlar&#305;n aktive olmas&#305; i&ccedil;in sshd servisini yeniden ba&#351;latmak gerekiyor :</p>
+<div class="highlight"><pre><span class="nv">$ </span>sudo service ssh restart
+</pre></div>
+
+</li>
+</ul></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/aydintd/github/fo/ssh-uygulamalari/index.md">/home/aydintd/github/fo/ssh-uygulamalari/index.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              31/34
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/aydintd/github/fo/ssh-uygulamalari/index.md -->
+      <div class="slide-wrapper">
+        <div class="slide has_code">
+          <div class="inner">
+            
+            <header><h2>S&#305;k&ccedil;a Kar&#351;&#305;la&#351;&#305;lan Problemler</h2></header>
+            
+            
+            <section><ul>
+<li>Senaryo :</li>
+</ul>
+<p>Sunucuda hesab&#305; olmayan kullan&#305;c&#305;n&#305;n kendi kullan&#305;c&#305;s&#305;yla ba&#287;lanmaya &ccedil;al&#305;&#351;mas&#305;</p>
+<p>E&#287;er uzak sunucuda kendinize ait bir kullan&#305;c&#305; hesab&#305;n&#305;z yoksa, oraya zaten ssh&rsquo;la ba&#287;lanamazs&#305;n&#305;z</p>
+<p>Ancak genelde bir sunucuya ba&#287;lan&#305;lmak istendi&#287;inde a&#351;a&#287;&#305;daki komut yaz&#305;l&#305;r :</p>
+<div class="highlight"><pre>     <span class="nv">$ </span>ssh uzak-sunucu-ipsi    <span class="c"># ya da domaininin adı</span>
+</pre></div>
+
+<p>Bu komut aynen &#351;&ouml;yle i&#351;ler</p>
+<div class="highlight"><pre>     <span class="nv">$ </span>ssh istemci-makine-kullanicisi@uzak-sunucu-ipsi
+</pre></div>
+
+<p>Komutu &ccedil;al&#305;&#351;t&#305;rd&#305;&#287;&#305;n&#305;z kullan&#305;c&#305;n&#305;n e&#287;er uzak sunucuda hesab&#305; yoksa sunucuya ba&#287;lanamazs&#305;n&#305;z</p>
+<p>Yapman&#305;z gereken &#351;ey, sunucudaki kullan&#305;c&#305;n&#305;zla, istemcinizdeki kullan&#305;c&#305;n&#305;z&#305;n ayn&#305; olmas&#305;n&#305; sa&#287;lamak ya da kullan&#305;c&#305; ad&#305; belirterek makineye ba&#287;lanmakt&#305;r</p></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/aydintd/github/fo/ssh-uygulamalari/index.md">/home/aydintd/github/fo/ssh-uygulamalari/index.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              32/34
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/aydintd/github/fo/ssh-uygulamalari/index.md -->
+      <div class="slide-wrapper">
+        <div class="slide has_code">
+          <div class="inner">
+            
+            <header><h2>S&#305;k&ccedil;a Kar&#351;&#305;la&#351;&#305;lan Problemler</h2></header>
+            
+            
+            <section><ul>
+<li>Dosya izinleri de problem &ccedil;&#305;karabilir</li>
+</ul>
+<p>OpenSSH sunuculardaki <code>~/.ssh</code> dizinini <code>700</code> , <code>~/.ssh/authorized_keys</code> dosyas&#305;n&#305; da <code>600</code> olarak ayarlaman&#305;z&#305; &ouml;nerir</p>
+<div class="highlight"><pre>    <span class="nv">$ </span>chmod go-w ~/.ssh ~/.ssh/authorized_keys
+</pre></div>
+
+<ul>
+<li>E&#287;er &ouml;ng&ouml;remedi&#287;iniz bir problemle kar&#351;&#305; kar&#351;&#305;ya oldu&#287;unuzu d&uuml;&#351;&uuml;n&uuml;yorsan&#305;z, SSH sunucunuzu debug modda &ccedil;al&#305;&#351;t&#305;r&#305;p, istemci taraf&#305;nda loglar&#305; g&ouml;zlemleyebilirsiniz</li>
+</ul>
+<p>Sunucu taraf&#305;nda :</p>
+<div class="highlight"><pre>    <span class="nv">$ </span>/usr/sbin/sshd -d -p 2222      <span class="c"># Sunucuyu debug modda 2222. port üzerinde çalıştır</span>
+</pre></div>
+
+<p>&#304;stemci taraf&#305;nda :</p>
+<div class="highlight"><pre>    <span class="nv">$ </span>ssh -vv -p 2222 user@remote-server   <span class="c"># Sunucu-istemci bağlantı çıktılarını izle</span>
+</pre></div>
+</section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/aydintd/github/fo/ssh-uygulamalari/index.md">/home/aydintd/github/fo/ssh-uygulamalari/index.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              33/34
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/aydintd/github/fo/ssh-uygulamalari/index.md -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h2>Sunum Sonu</h2></header>
+            
+            
+            <section><ul>
+<li>Sorular ?</li>
+</ul></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/aydintd/github/fo/ssh-uygulamalari/index.md">/home/aydintd/github/fo/ssh-uygulamalari/index.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              34/34
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+  
+  <div id="toc" class="sidebar hidden">
+    <h2>Table of Contents</h2>
+    <table>
+      <caption>Table of Contents</caption>
+      
+      <tr id="toc-row-1">
+        <th><a href="#slide1">SSH ve Uygulamalar&#305;</a></th>
+        <td><a href="#slide1">1</a></td>
+      </tr>
+      
+        
+        <tr id="toc-row-2" class="sub">
+          <th><a href="#slide2">SSH Nedir?</a></th>
+          <td><a href="#slide2">2</a></td>
+        </tr>
+        
+        <tr id="toc-row-3" class="sub">
+          <th><a href="#slide3">SSH&rsquo;in &Ccedil;&ouml;z&uuml;m Getirdi&#287;i Problemler</a></th>
+          <td><a href="#slide3">3</a></td>
+        </tr>
+        
+        <tr id="toc-row-4" class="sub">
+          <th><a href="#slide4">SSH&rsquo;dan &Ouml;nce Kullan&#305;lan &Ccedil;&ouml;z&uuml;mler</a></th>
+          <td><a href="#slide4">4</a></td>
+        </tr>
+        
+        <tr id="toc-row-5" class="sub">
+          <th><a href="#slide5">SSH&rsquo;&#305;n Zay&#305;fl&#305;klar&#305;</a></th>
+          <td><a href="#slide5">5</a></td>
+        </tr>
+        
+        <tr id="toc-row-6" class="sub">
+          <th><a href="#slide6">SSH&rsquo;&#305;n Geli&#351;imi</a></th>
+          <td><a href="#slide6">6</a></td>
+        </tr>
+        
+        <tr id="toc-row-7" class="sub">
+          <th><a href="#slide7">SSH &Ouml;zg&uuml;r Yaz&#305;l&#305;m Olarak Geli&#351;imi</a></th>
+          <td><a href="#slide7">7</a></td>
+        </tr>
+        
+        <tr id="toc-row-8" class="sub">
+          <th><a href="#slide8">SSH &#304;stemcisi Nas&#305;l Kurulur?</a></th>
+          <td><a href="#slide8">8</a></td>
+        </tr>
+        
+        <tr id="toc-row-9" class="sub">
+          <th><a href="#slide9">SSH Anahtar &Uuml;retimi</a></th>
+          <td><a href="#slide9">9</a></td>
+        </tr>
+        
+        <tr id="toc-row-10" class="sub">
+          <th><a href="#slide10">Olu&#351;turulan Anahtarlara Bak&#305;&#351;</a></th>
+          <td><a href="#slide10">10</a></td>
+        </tr>
+        
+        <tr id="toc-row-11" class="sub">
+          <th><a href="#slide11">Parolas&#305;z Giri&#351; Ve Gnome Keyring</a></th>
+          <td><a href="#slide11">11</a></td>
+        </tr>
+        
+        <tr id="toc-row-12" class="sub">
+          <th><a href="#slide12">Kar&#351;&#305; Sunucuda Komut &Ccedil;al&#305;&#351;t&#305;rma</a></th>
+          <td><a href="#slide12">12</a></td>
+        </tr>
+        
+        <tr id="toc-row-13" class="sub">
+          <th><a href="#slide13">Kabuk Oturumunun Ayarlanmas&#305;</a></th>
+          <td><a href="#slide13">13</a></td>
+        </tr>
+        
+        <tr id="toc-row-14" class="sub">
+          <th><a href="#slide14">Farkl&#305; Kullan&#305;c&#305; Giri&#351;leri</a></th>
+          <td><a href="#slide14">14</a></td>
+        </tr>
+        
+        <tr id="toc-row-15" class="sub">
+          <th><a href="#slide15">Tek Bir Ayar Dosyas&#305;</a></th>
+          <td><a href="#slide15">15</a></td>
+        </tr>
+        
+        <tr id="toc-row-16" class="sub">
+          <th><a href="#slide16">Port Giri&#351;leri</a></th>
+          <td><a href="#slide16">16</a></td>
+        </tr>
+        
+        <tr id="toc-row-17" class="sub">
+          <th><a href="#slide17">&#304;stemci Yap&#305;land&#305;rmas&#305;</a></th>
+          <td><a href="#slide17">17</a></td>
+        </tr>
+        
+        <tr id="toc-row-18" class="sub">
+          <th><a href="#slide18">Temel Yap&#305;land&#305;rma Ayarlar&#305;</a></th>
+          <td><a href="#slide18">18</a></td>
+        </tr>
+        
+        <tr id="toc-row-19" class="sub">
+          <th><a href="#slide19">SSH Sunucusu Ne &#304;&#351; Yapar?</a></th>
+          <td><a href="#slide19">19</a></td>
+        </tr>
+        
+        <tr id="toc-row-20" class="sub">
+          <th><a href="#slide20">&#304;stemci/Sunucu Fark&#305;</a></th>
+          <td><a href="#slide20">20</a></td>
+        </tr>
+        
+        <tr id="toc-row-21" class="sub">
+          <th><a href="#slide21">SSH Sunucu Kurulumu</a></th>
+          <td><a href="#slide21">21</a></td>
+        </tr>
+        
+        <tr id="toc-row-22" class="sub">
+          <th><a href="#slide22">SSH Sunucusunun Ayarlanmas&#305;</a></th>
+          <td><a href="#slide22">22</a></td>
+        </tr>
+        
+        <tr id="toc-row-23" class="sub">
+          <th><a href="#slide23">SSH Sunucusunun Kontrol&uuml;</a></th>
+          <td><a href="#slide23">23</a></td>
+        </tr>
+        
+        <tr id="toc-row-24" class="sub">
+          <th><a href="#slide24">Sunucunun Temel Yap&#305;land&#305;rma Ayarlar&#305;</a></th>
+          <td><a href="#slide24">24</a></td>
+        </tr>
+        
+        <tr id="toc-row-25" class="sub">
+          <th><a href="#slide25">Temel Yap&#305;land&#305;rma Ayarlar&#305; - Port</a></th>
+          <td><a href="#slide25">25</a></td>
+        </tr>
+        
+        <tr id="toc-row-26" class="sub">
+          <th><a href="#slide26">Temel Yap&#305;land&#305;rma Ayarlar&#305; - Anahtarlar</a></th>
+          <td><a href="#slide26">26</a></td>
+        </tr>
+        
+        <tr id="toc-row-27" class="sub">
+          <th><a href="#slide27">Temel Yap&#305;land&#305;rma Ayarlar&#305; - Loglama</a></th>
+          <td><a href="#slide27">27</a></td>
+        </tr>
+        
+        <tr id="toc-row-28" class="sub">
+          <th><a href="#slide28">Temel Yap&#305;land&#305;rma Ayarlar&#305; - G&uuml;venlik</a></th>
+          <td><a href="#slide28">28</a></td>
+        </tr>
+        
+        <tr id="toc-row-29" class="sub">
+          <th><a href="#slide29">Ortak Anahtarlarla Sunucuya Eri&#351;im</a></th>
+          <td><a href="#slide29">29</a></td>
+        </tr>
+        
+        <tr id="toc-row-30" class="sub">
+          <th><a href="#slide30">Ortak Anahtarlarla Sunucuya Eri&#351;im</a></th>
+          <td><a href="#slide30">30</a></td>
+        </tr>
+        
+        <tr id="toc-row-31" class="sub">
+          <th><a href="#slide31">SSH Kullan&#305;c&#305; &#304;zinleri ve Banner Ayarlar&#305;</a></th>
+          <td><a href="#slide31">31</a></td>
+        </tr>
+        
+        <tr id="toc-row-32" class="sub">
+          <th><a href="#slide32">S&#305;k&ccedil;a Kar&#351;&#305;la&#351;&#305;lan Problemler</a></th>
+          <td><a href="#slide32">32</a></td>
+        </tr>
+        
+        <tr id="toc-row-33" class="sub">
+          <th><a href="#slide33">S&#305;k&ccedil;a Kar&#351;&#305;la&#351;&#305;lan Problemler</a></th>
+          <td><a href="#slide33">33</a></td>
+        </tr>
+        
+        <tr id="toc-row-34" class="sub">
+          <th><a href="#slide34">Sunum Sonu</a></th>
+          <td><a href="#slide34">34</a></td>
+        </tr>
+        
+      
+      
+    </table>
+  </div>
+  
+  <div id="help" class="sidebar hidden">
+    <h2>Help</h2>
+    <table>
+      <caption>Help</caption>
+      <tr>
+        <th>Table of Contents</th>
+        <td>t</td>
+      </tr>
+      <tr>
+        <th>Exposé</th>
+        <td>ESC</td>
+      </tr>
+      <tr>
+        <th>Full screen slides</th>
+        <td>e</td>
+      </tr>
+      <tr>
+        <th>Presenter View</th>
+        <td>p</td>
+      </tr>
+      <tr>
+        <th>Source Files</th>
+        <td>s</td>
+      </tr>
+      <tr>
+        <th>Slide Numbers</th>
+        <td>n</td>
+      </tr>
+      <tr>
+        <th>Toggle screen blanking</th>
+        <td>b</td>
+      </tr>
+      <tr>
+        <th>Show/hide slide context</th>
+        <td>c</td>
+      </tr>
+      <tr>
+        <th>Notes</th>
+        <td>2</td>
+      </tr>
+      <tr>
+        <th>Help</th>
+        <td>h</td>
+      </tr>
+    </table>
+  </div>
+  <script>main()</script>
+</body>
+</html>
