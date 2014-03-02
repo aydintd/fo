@@ -3,10 +3,10 @@
 .fx: first
 
 Nihan Çaydaş `<nihan.caydas@bil.omu.edu.tr>`	 
-Sayfalar : 2-18	
+Sayfalar : 2-17	
 
 Aydın Doyak `<aydintd@bil.omu.edu.tr>`	
-Sayfalar : 19-31
+Sayfalar : 18-32
 
 http://aydintd.me/
 
@@ -154,12 +154,6 @@ SSH 1.2.12 --> Özgür yazılım olarak ortaya çıkmıştır
 
 ---
 
-## Kabuk Oturumunun Ayarlanması
-
-* TODO 
-
----
-
 ## Farklı Kullanıcı Girişleri
 
 *   Uzaktaki bir makineye farklı kullanıcılarla bağlanmak için,
@@ -174,6 +168,7 @@ SSH 1.2.12 --> Özgür yazılım olarak ortaya çıkmıştır
         !sh
         $ sudo cp /etc/ssh/ssh_config /home/user/.ssh/config
         $ vim /home/user/.ssh/config
+
 ---
 
 ## Tek Bir Ayar Dosyası
@@ -193,7 +188,7 @@ SSH 1.2.12 --> Özgür yazılım olarak ortaya çıkmıştır
  
         //override as per host //
         Host server1
-        HostName host_adı
+        HostName host_adi
         User nixcraft
         Port 4242
         IdentityFile /nfs/shared/users/nixcraft/keys/server1/id_rsa
@@ -212,11 +207,9 @@ SSH 1.2.12 --> Özgür yazılım olarak ortaya çıkmıştır
 
 ## İstemci Yapılandırması
 
-*   `/home/user/.ssh/config` ayar tablosu listeler
+*   SSH İstemcinin öntanımlı ayar dosyası `/etc/ssh/ssh_config` 
 
-*   Uçbirimde
-
-        $ cat /etc/ssh/ssh_config
+        $ sudo vim /etc/ssh/ssh_config
 
 *   Ayarları değiştirmek için root izinlerine sahip olmalı
 
@@ -235,7 +228,6 @@ SSH 1.2.12 --> Özgür yazılım olarak ortaya çıkmıştır
 *   ConnectTimeOut: Sunucuda bir şey yapılmadığı takdirde bağlı kalınacak süre
 
 *   Port: Öntanımlı gelen 22.portu değiştirme ayarı
-
 
 ---
 
@@ -260,7 +252,7 @@ erişim protokollerinden biri
 *   Bana göre bir servisin çalışma prensibini anlamak, o servisin istemcisinin ve		
 sunucusunun ayrı ayrı hangi problemlere çözüm getirdiğini araştırmakla başlamalı
 
-*   Sistem yöneticisi olarak benim çok özenli davranmaya çalıştığım noktalardan birisi bu	
+*   Sistem yöneticisi olarak benim özenli davranmaya çalıştığım noktalardan birisi bu	
 
 *   Karşılaşılacak muhtemel problemi sınıflandırmayı, kategorize etmeyi çok kolaylaştırır	
 Böylece çözüm için bakacağınız yeri önceden tahmin edebilirsiniz 
@@ -275,7 +267,7 @@ uzaktan erişilebilme özelliği kazandırır
 
 ## SSH Sunucu Kurulumu
 
-*   Ubuntu/Debian türevi sistemlerde SSH sunucusunu aşağıdaki şekilde kurulur 
+*   Ubuntu/Debian türevi sistemlerde SSH sunucusu aşağıdaki şekilde kurulur 
 
         !sh
         $ sudo apt-get install openssh-server 
