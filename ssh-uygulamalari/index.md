@@ -34,7 +34,7 @@ http://aydintd.me/
 
 *   İki bilgisayar arasındaki veri trafiğinin, araya giren başka bir bilgisayar tarafından okunması, değiştirilmesi yoluyla yapılan saldırılar
 
-*   İletişimde olan iki bilgisayar arasındaki herhangibir sunucuda bulunan kötü niyetli kişilerin yapacağı saldırılar
+*   İletişimde olan iki bilgisayar arasındaki herhangi bir sunucuda bulunan kötü niyetli kişilerin yapacağı saldırılar
 
 *   X11 sunucusundaki iletişim dinlenerek ve X doğrulaması temel alınarak gerçekleştirilen saldırılar
 
