@@ -1105,6 +1105,13 @@ div.slide table:not(.highlighttable) tr td:first-child {
     var showingPresenterView = false;
     var presenterViewWin = null;
     var isPresenterView = false;
+    var isAndroid = navigator.userAgent.toLowerCase().indexOf('android') > -1;
+
+    if (isAndroid) {
+      document.querySelector('meta[name=viewport]').setAttribute('content',
+	'width=device-width, initial-scale=0.7, maximum-scale=0.7, user-scalable=no'
+      );
+    }
 
     var str2array = function(s) {
         if (typeof s == 'string' || s instanceof String) {
@@ -1597,6 +1604,7 @@ div.slide table:not(.highlighttable) tr td:first-child {
 
     var addTouchListeners = function() {
         document.addEventListener('touchstart', function(e) {
+	    if (isAndroid) e.preventDefault();
             touchStartX = e.touches[0].pageX;
         }, false);
         document.addEventListener('touchend', function(e) {
@@ -1759,7 +1767,7 @@ div.slide table:not(.highlighttable) tr td:first-child {
     </div>
     <div class="slides">
       
-      <!-- slide source: vagrant-2/index.md -->
+      <!-- slide source: /home/aydintd/github/fo/vagrant-2/index.md -->
       <div class="slide-wrapper">
         <div class="slide first">
           <div class="inner">
@@ -1781,7 +1789,7 @@ div.slide table:not(.highlighttable) tr td:first-child {
           <footer>
             
             <aside class="source">
-              Source: <a href="vagrant-2/index.md">vagrant-2/index.md</a>
+              Source: <a href="/home/aydintd/github/fo/vagrant-2/index.md">/home/aydintd/github/fo/vagrant-2/index.md</a>
             </aside>
             
             <aside class="page_number">
@@ -1791,7 +1799,7 @@ div.slide table:not(.highlighttable) tr td:first-child {
         </div>
       </div>
       
-      <!-- slide source: vagrant-2/index.md -->
+      <!-- slide source: /home/aydintd/github/fo/vagrant-2/index.md -->
       <div class="slide-wrapper">
         <div class="slide">
           <div class="inner">
@@ -1821,7 +1829,7 @@ div.slide table:not(.highlighttable) tr td:first-child {
           <footer>
             
             <aside class="source">
-              Source: <a href="vagrant-2/index.md">vagrant-2/index.md</a>
+              Source: <a href="/home/aydintd/github/fo/vagrant-2/index.md">/home/aydintd/github/fo/vagrant-2/index.md</a>
             </aside>
             
             <aside class="page_number">
@@ -1831,7 +1839,7 @@ div.slide table:not(.highlighttable) tr td:first-child {
         </div>
       </div>
       
-      <!-- slide source: vagrant-2/index.md -->
+      <!-- slide source: /home/aydintd/github/fo/vagrant-2/index.md -->
       <div class="slide-wrapper">
         <div class="slide">
           <div class="inner">
@@ -1865,7 +1873,7 @@ div.slide table:not(.highlighttable) tr td:first-child {
           <footer>
             
             <aside class="source">
-              Source: <a href="vagrant-2/index.md">vagrant-2/index.md</a>
+              Source: <a href="/home/aydintd/github/fo/vagrant-2/index.md">/home/aydintd/github/fo/vagrant-2/index.md</a>
             </aside>
             
             <aside class="page_number">
@@ -1875,7 +1883,7 @@ div.slide table:not(.highlighttable) tr td:first-child {
         </div>
       </div>
       
-      <!-- slide source: vagrant-2/index.md -->
+      <!-- slide source: /home/aydintd/github/fo/vagrant-2/index.md -->
       <div class="slide-wrapper">
         <div class="slide">
           <div class="inner">
@@ -1906,7 +1914,7 @@ div.slide table:not(.highlighttable) tr td:first-child {
           <footer>
             
             <aside class="source">
-              Source: <a href="vagrant-2/index.md">vagrant-2/index.md</a>
+              Source: <a href="/home/aydintd/github/fo/vagrant-2/index.md">/home/aydintd/github/fo/vagrant-2/index.md</a>
             </aside>
             
             <aside class="page_number">
@@ -1916,7 +1924,7 @@ div.slide table:not(.highlighttable) tr td:first-child {
         </div>
       </div>
       
-      <!-- slide source: vagrant-2/index.md -->
+      <!-- slide source: /home/aydintd/github/fo/vagrant-2/index.md -->
       <div class="slide-wrapper">
         <div class="slide">
           <div class="inner">
@@ -1954,7 +1962,7 @@ div.slide table:not(.highlighttable) tr td:first-child {
           <footer>
             
             <aside class="source">
-              Source: <a href="vagrant-2/index.md">vagrant-2/index.md</a>
+              Source: <a href="/home/aydintd/github/fo/vagrant-2/index.md">/home/aydintd/github/fo/vagrant-2/index.md</a>
             </aside>
             
             <aside class="page_number">
@@ -1964,7 +1972,7 @@ div.slide table:not(.highlighttable) tr td:first-child {
         </div>
       </div>
       
-      <!-- slide source: vagrant-2/index.md -->
+      <!-- slide source: /home/aydintd/github/fo/vagrant-2/index.md -->
       <div class="slide-wrapper">
         <div class="slide">
           <div class="inner">
@@ -1993,7 +2001,7 @@ div.slide table:not(.highlighttable) tr td:first-child {
           <footer>
             
             <aside class="source">
-              Source: <a href="vagrant-2/index.md">vagrant-2/index.md</a>
+              Source: <a href="/home/aydintd/github/fo/vagrant-2/index.md">/home/aydintd/github/fo/vagrant-2/index.md</a>
             </aside>
             
             <aside class="page_number">
@@ -2003,7 +2011,7 @@ div.slide table:not(.highlighttable) tr td:first-child {
         </div>
       </div>
       
-      <!-- slide source: vagrant-2/index.md -->
+      <!-- slide source: /home/aydintd/github/fo/vagrant-2/index.md -->
       <div class="slide-wrapper">
         <div class="slide">
           <div class="inner">
@@ -2035,7 +2043,7 @@ div.slide table:not(.highlighttable) tr td:first-child {
           <footer>
             
             <aside class="source">
-              Source: <a href="vagrant-2/index.md">vagrant-2/index.md</a>
+              Source: <a href="/home/aydintd/github/fo/vagrant-2/index.md">/home/aydintd/github/fo/vagrant-2/index.md</a>
             </aside>
             
             <aside class="page_number">
@@ -2045,7 +2053,7 @@ div.slide table:not(.highlighttable) tr td:first-child {
         </div>
       </div>
       
-      <!-- slide source: vagrant-2/index.md -->
+      <!-- slide source: /home/aydintd/github/fo/vagrant-2/index.md -->
       <div class="slide-wrapper">
         <div class="slide has_code">
           <div class="inner">
@@ -2087,7 +2095,7 @@ div.slide table:not(.highlighttable) tr td:first-child {
           <footer>
             
             <aside class="source">
-              Source: <a href="vagrant-2/index.md">vagrant-2/index.md</a>
+              Source: <a href="/home/aydintd/github/fo/vagrant-2/index.md">/home/aydintd/github/fo/vagrant-2/index.md</a>
             </aside>
             
             <aside class="page_number">
@@ -2097,7 +2105,7 @@ div.slide table:not(.highlighttable) tr td:first-child {
         </div>
       </div>
       
-      <!-- slide source: vagrant-2/index.md -->
+      <!-- slide source: /home/aydintd/github/fo/vagrant-2/index.md -->
       <div class="slide-wrapper">
         <div class="slide">
           <div class="inner">
@@ -2144,7 +2152,7 @@ Kullan&#305;c&#305; &#351;ifresi: vagrant
           <footer>
             
             <aside class="source">
-              Source: <a href="vagrant-2/index.md">vagrant-2/index.md</a>
+              Source: <a href="/home/aydintd/github/fo/vagrant-2/index.md">/home/aydintd/github/fo/vagrant-2/index.md</a>
             </aside>
             
             <aside class="page_number">
@@ -2154,7 +2162,7 @@ Kullan&#305;c&#305; &#351;ifresi: vagrant
         </div>
       </div>
       
-      <!-- slide source: vagrant-2/index.md -->
+      <!-- slide source: /home/aydintd/github/fo/vagrant-2/index.md -->
       <div class="slide-wrapper">
         <div class="slide">
           <div class="inner">
@@ -2185,7 +2193,7 @@ konfig&uuml;rasyon var</p>
           <footer>
             
             <aside class="source">
-              Source: <a href="vagrant-2/index.md">vagrant-2/index.md</a>
+              Source: <a href="/home/aydintd/github/fo/vagrant-2/index.md">/home/aydintd/github/fo/vagrant-2/index.md</a>
             </aside>
             
             <aside class="page_number">
@@ -2195,7 +2203,7 @@ konfig&uuml;rasyon var</p>
         </div>
       </div>
       
-      <!-- slide source: vagrant-2/index.md -->
+      <!-- slide source: /home/aydintd/github/fo/vagrant-2/index.md -->
       <div class="slide-wrapper">
         <div class="slide has_code">
           <div class="inner">
@@ -2232,7 +2240,7 @@ konfig&uuml;rasyon var</p>
           <footer>
             
             <aside class="source">
-              Source: <a href="vagrant-2/index.md">vagrant-2/index.md</a>
+              Source: <a href="/home/aydintd/github/fo/vagrant-2/index.md">/home/aydintd/github/fo/vagrant-2/index.md</a>
             </aside>
             
             <aside class="page_number">
@@ -2242,7 +2250,7 @@ konfig&uuml;rasyon var</p>
         </div>
       </div>
       
-      <!-- slide source: vagrant-2/index.md -->
+      <!-- slide source: /home/aydintd/github/fo/vagrant-2/index.md -->
       <div class="slide-wrapper">
         <div class="slide">
           <div class="inner">
@@ -2278,7 +2286,7 @@ commentleyin.</p>
           <footer>
             
             <aside class="source">
-              Source: <a href="vagrant-2/index.md">vagrant-2/index.md</a>
+              Source: <a href="/home/aydintd/github/fo/vagrant-2/index.md">/home/aydintd/github/fo/vagrant-2/index.md</a>
             </aside>
             
             <aside class="page_number">
@@ -2288,7 +2296,7 @@ commentleyin.</p>
         </div>
       </div>
       
-      <!-- slide source: vagrant-2/index.md -->
+      <!-- slide source: /home/aydintd/github/fo/vagrant-2/index.md -->
       <div class="slide-wrapper">
         <div class="slide has_code">
           <div class="inner">
@@ -2330,7 +2338,7 @@ commentleyin.</p>
           <footer>
             
             <aside class="source">
-              Source: <a href="vagrant-2/index.md">vagrant-2/index.md</a>
+              Source: <a href="/home/aydintd/github/fo/vagrant-2/index.md">/home/aydintd/github/fo/vagrant-2/index.md</a>
             </aside>
             
             <aside class="page_number">
@@ -2340,7 +2348,7 @@ commentleyin.</p>
         </div>
       </div>
       
-      <!-- slide source: vagrant-2/index.md -->
+      <!-- slide source: /home/aydintd/github/fo/vagrant-2/index.md -->
       <div class="slide-wrapper">
         <div class="slide has_code">
           <div class="inner">
@@ -2382,7 +2390,7 @@ VirtualBox un bize sundu&#287;u misafir eklentilerini kurmam&#305;z gerekecek</p
           <footer>
             
             <aside class="source">
-              Source: <a href="vagrant-2/index.md">vagrant-2/index.md</a>
+              Source: <a href="/home/aydintd/github/fo/vagrant-2/index.md">/home/aydintd/github/fo/vagrant-2/index.md</a>
             </aside>
             
             <aside class="page_number">
@@ -2392,7 +2400,7 @@ VirtualBox un bize sundu&#287;u misafir eklentilerini kurmam&#305;z gerekecek</p
         </div>
       </div>
       
-      <!-- slide source: vagrant-2/index.md -->
+      <!-- slide source: /home/aydintd/github/fo/vagrant-2/index.md -->
       <div class="slide-wrapper">
         <div class="slide has_code">
           <div class="inner">
@@ -2425,7 +2433,7 @@ hayati de&#287;il</p>
           <footer>
             
             <aside class="source">
-              Source: <a href="vagrant-2/index.md">vagrant-2/index.md</a>
+              Source: <a href="/home/aydintd/github/fo/vagrant-2/index.md">/home/aydintd/github/fo/vagrant-2/index.md</a>
             </aside>
             
             <aside class="page_number">
@@ -2435,7 +2443,7 @@ hayati de&#287;il</p>
         </div>
       </div>
       
-      <!-- slide source: vagrant-2/index.md -->
+      <!-- slide source: /home/aydintd/github/fo/vagrant-2/index.md -->
       <div class="slide-wrapper">
         <div class="slide has_code">
           <div class="inner">
@@ -2481,7 +2489,7 @@ https://raw.github.com/mitcellh/vagrant/master/keys/vagrant.pub
           <footer>
             
             <aside class="source">
-              Source: <a href="vagrant-2/index.md">vagrant-2/index.md</a>
+              Source: <a href="/home/aydintd/github/fo/vagrant-2/index.md">/home/aydintd/github/fo/vagrant-2/index.md</a>
             </aside>
             
             <aside class="page_number">
@@ -2491,7 +2499,7 @@ https://raw.github.com/mitcellh/vagrant/master/keys/vagrant.pub
         </div>
       </div>
       
-      <!-- slide source: vagrant-2/index.md -->
+      <!-- slide source: /home/aydintd/github/fo/vagrant-2/index.md -->
       <div class="slide-wrapper">
         <div class="slide has_code">
           <div class="inner">
@@ -2537,7 +2545,7 @@ ula&#351;abileceksiniz</p>
           <footer>
             
             <aside class="source">
-              Source: <a href="vagrant-2/index.md">vagrant-2/index.md</a>
+              Source: <a href="/home/aydintd/github/fo/vagrant-2/index.md">/home/aydintd/github/fo/vagrant-2/index.md</a>
             </aside>
             
             <aside class="page_number">
@@ -2547,7 +2555,7 @@ ula&#351;abileceksiniz</p>
         </div>
       </div>
       
-      <!-- slide source: vagrant-2/index.md -->
+      <!-- slide source: /home/aydintd/github/fo/vagrant-2/index.md -->
       <div class="slide-wrapper">
         <div class="slide">
           <div class="inner">
@@ -2570,7 +2578,7 @@ ula&#351;abileceksiniz</p>
           <footer>
             
             <aside class="source">
-              Source: <a href="vagrant-2/index.md">vagrant-2/index.md</a>
+              Source: <a href="/home/aydintd/github/fo/vagrant-2/index.md">/home/aydintd/github/fo/vagrant-2/index.md</a>
             </aside>
             
             <aside class="page_number">

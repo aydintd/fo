@@ -1105,6 +1105,13 @@ div.slide table:not(.highlighttable) tr td:first-child {
     var showingPresenterView = false;
     var presenterViewWin = null;
     var isPresenterView = false;
+    var isAndroid = navigator.userAgent.toLowerCase().indexOf('android') > -1;
+
+    if (isAndroid) {
+      document.querySelector('meta[name=viewport]').setAttribute('content',
+	'width=device-width, initial-scale=0.7, maximum-scale=0.7, user-scalable=no'
+      );
+    }
 
     var str2array = function(s) {
         if (typeof s == 'string' || s instanceof String) {
@@ -1597,6 +1604,7 @@ div.slide table:not(.highlighttable) tr td:first-child {
 
     var addTouchListeners = function() {
         document.addEventListener('touchstart', function(e) {
+	    if (isAndroid) e.preventDefault();
             touchStartX = e.touches[0].pageX;
         }, false);
         document.addEventListener('touchend', function(e) {
@@ -2024,9 +2032,7 @@ y&ouml;netebilece&#287;i ara&ccedil;lar&#305; sa&#287;lamakt&#305;r.</strong></p
             
             
             <section><ul>
-<li>
-<p>Sisteminizin g&uuml;ncel oldu&#287;una ve sisteminizde Virtualbox kurulu oldu&#287;undan emin olun</p>
-<div class="highlight"><pre><span class="nv">$ </span>sudo apt-get upgrade <span class="o">&amp;&amp;</span> sudo apt-get update
+<li>Sisteminizin g&uuml;ncel oldu&#287;una ve sisteminizde Virtualbox kurulu oldu&#287;undan emin olun<div class="highlight"><pre><span class="nv">$ </span>sudo apt-get upgrade <span class="o">&amp;&amp;</span> sudo apt-get update
 </pre></div>
 
 </li>
@@ -2472,9 +2478,7 @@ bire bir kopyalar&#305; &uuml;zerinde &ccedil;al&#305;&#351;maya olanak sa&#287;
             
             
             <section><ul>
-<li>
-<p>Projeyi ba&#351;lat&#305;n, a&#351;a&#287;&#305;daki gibi bir &ccedil;&#305;kt&#305; g&ouml;receksiniz</p>
-<div class="highlight"><pre><span class="nv">$ </span>vagrant up
+<li>Projeyi ba&#351;lat&#305;n, a&#351;a&#287;&#305;daki gibi bir &ccedil;&#305;kt&#305; g&ouml;receksiniz<div class="highlight"><pre><span class="nv">$ </span>vagrant up
 -&gt; <span class="o">[</span>default<span class="o">]</span> Importing base box <span class="s1">&#39;precise32&#39;</span>...
 -&gt; <span class="o">[</span>default<span class="o">]</span> Matching MAC address <span class="k">for </span>NAT networking...
 -&gt; <span class="o">[</span>default<span class="o">]</span> Clearing any previously <span class="nb">set </span>forwarded ports...

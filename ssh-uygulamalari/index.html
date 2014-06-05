@@ -1105,6 +1105,13 @@ div.slide table:not(.highlighttable) tr td:first-child {
     var showingPresenterView = false;
     var presenterViewWin = null;
     var isPresenterView = false;
+    var isAndroid = navigator.userAgent.toLowerCase().indexOf('android') > -1;
+
+    if (isAndroid) {
+      document.querySelector('meta[name=viewport]').setAttribute('content',
+	'width=device-width, initial-scale=0.7, maximum-scale=0.7, user-scalable=no'
+      );
+    }
 
     var str2array = function(s) {
         if (typeof s == 'string' || s instanceof String) {
@@ -1597,6 +1604,7 @@ div.slide table:not(.highlighttable) tr td:first-child {
 
     var addTouchListeners = function() {
         document.addEventListener('touchstart', function(e) {
+	    if (isAndroid) e.preventDefault();
             touchStartX = e.touches[0].pageX;
         }, false);
         document.addEventListener('touchend', function(e) {
@@ -2068,9 +2076,7 @@ SSH 1.2.12 &mdash;&gt; &Ouml;zg&uuml;r yaz&#305;l&#305;m olarak ortaya &ccedil;&
             
             
             <section><ul>
-<li>
-<p>U&ccedil;birim a&ccedil;&#305;l&#305;r ve a&#351;a&#287;&#305;daki komutlar yaz&#305;l&#305;r :</p>
-<pre><code>$ sudo apt-get install openssh-client
+<li>U&ccedil;birim a&ccedil;&#305;l&#305;r ve a&#351;a&#287;&#305;daki komutlar yaz&#305;l&#305;r :<pre><code>$ sudo apt-get install openssh-client
 </code></pre>
 </li>
 </ul></section>
@@ -2328,9 +2334,7 @@ id_rsa.pub
             
             
             <section><ul>
-<li>
-<p>&Ouml;rnek bir <code>config</code> dosyas&#305; i&ccedil;eri&#287;i :</p>
-<pre><code>// default for all //
+<li>&Ouml;rnek bir <code>config</code> dosyas&#305; i&ccedil;eri&#287;i :<pre><code>// default for all //
 Host *
 ForwardAgent no
 ForwardX11 no
@@ -2920,7 +2924,10 @@ localhost <span class="o">[</span>127.0.0.1<span class="o">]</span> 22 <span cla
 SyslogFacility AUTH
 LogLevel INFO           <span class="c"># VERBOSE</span>
 </pre></div>
-</section>
+
+
+</li>
+</ul></section>
             
           </div>
           <div class="presenter_notes">
